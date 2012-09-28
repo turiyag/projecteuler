@@ -92,7 +92,6 @@ public class Primes {
 		int xSquared;
 		int nSquared;
 		int nMod12;
-		final int nMax = 0;
 		final int sqrtLimit = (int) Math.sqrt(iLimit);
 		
 		System.out.println("Memory allocated");
