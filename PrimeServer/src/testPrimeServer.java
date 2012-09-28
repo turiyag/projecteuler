@@ -5,12 +5,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class testPrimeServer {
+	PrimeServer	_ps;
 	
 	@Before
 	public void setUp() throws Exception {
 		int i = 0;
-		final PrimeServer ps = new PrimeServer();
-		i = ps.getCount();
+		final PrimeServer _ps = new PrimeServer();
+		i = _ps.getCount();
 		i = i + 1;
 	}
 	
@@ -20,6 +21,10 @@ public class testPrimeServer {
 	
 	@Test
 	public void test() {
+		assertEquals(2, _ps.getPrime(0));
+		assertEquals(3, _ps.getPrime(1));
+		assertEquals(5, _ps.getPrime(2));
+		assertEquals(7, _ps.getPrime(3));
 		
 	}
 	
