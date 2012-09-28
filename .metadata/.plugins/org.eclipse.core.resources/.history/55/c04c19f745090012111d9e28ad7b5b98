@@ -1,0 +1,43 @@
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class testPrimes {
+	Primes p;
+	Primes pLarge;
+	
+	@Before
+	public void setUp() throws Exception {
+		p = new Primes(100);
+		// pLarge = new Primes(Primes.PRIME_10SEC);
+	}
+	
+	@After
+	public void tearDown() throws Exception {
+	}
+	
+	@Test
+	public void testGetter() {
+		assertEquals(2, p.GetPrime(0));
+		assertEquals(3, p.GetPrime(1));
+		assertEquals(5, p.GetPrime(2));
+		assertEquals(7, p.GetPrime(3));
+		assertEquals(541, p.GetPrime(99));
+		try {
+			p.GetPrime(100);
+			fail("Array bound breach should have errored");
+		} catch (final ArrayIndexOutOfBoundsException e) {
+			// This is normal functionality
+		}
+		try {
+			p.GetPrime(-1);
+			fail("Array bound breach should have errored");
+		} catch (final ArrayIndexOutOfBoundsException e) {
+			// This is normal functionality
+			
+		}
+	}
+	
+}

@@ -5,76 +5,77 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 public class PrimeServerThread extends Thread {
-	protected DatagramSocket socket = null;
-	protected BufferedReader in = null;
-
+	static final public int		PACKET_SIZE	= 8192;
+	protected DatagramSocket	socket		= null;
+	protected BufferedReader	in			= null;
+	
 	public PrimeServerThread() throws IOException {
 		this("PrimeServerThread");
 	}
-
-	public PrimeServerThread(String name) throws IOException {
+	
+	public PrimeServerThread(final String name) throws IOException {
 		super(name);
 		socket = new DatagramSocket(65521);
 	}
-
+	
+	@Override
 	public void run() {
-		// boolean bKeepGoing=true;
-		Primes p = new Primes(Primes.PRIME_1600SEC);
-		int iSize = 8192;
-		int[] iaPrimes;
+		final Primes p = new Primes(Primes.PRIME_10SEC);
 		int iCount = 0;
-
-		System.out.println("Done!");
+		InetAddress address;
+		int port;
+		DatagramPacket packet;
+		byte[] buf;
+		
+		System.out.println("Primes up to " + p.GetCount() + " have been generated.");
 		while (true) {
 			try {
-				byte[] buf = new byte[1];
-				// receive request
-				DatagramPacket packet = new DatagramPacket(buf, buf.length);
+				buf = new byte[1];
+				packet = new DatagramPacket(buf, buf.length);
 				socket.receive(packet);
 				if (buf[0] == 2) {
-					iaPrimes = new int[iSize];
-					for (int i = 0; i < iaPrimes.length; i++) {
-						iaPrimes[i] = p.GetPrime(i);
-					}
-					iCount = iSize;
-					buf = ToBytes(iaPrimes);
+					buf = ToBytes(p.GetPrimes(0, PACKET_SIZE));
+					iCount = PACKET_SIZE;
 				} else {
-					iaPrimes = new int[iSize];
-					for (int i = 0; i < iaPrimes.length; i++) {
-						iaPrimes[i] = p.GetPrime(i + iCount);
-					}
-					iCount += iSize;
-					buf = ToBytes(iaPrimes);
+					buf = ToBytes(p.GetPrimes(iCount, iCount + PACKET_SIZE));
+					iCount += PACKET_SIZE;
 				}
-
+				
 				// send the response to the client at "address" and "port"
-				InetAddress address = packet.getAddress();
-				int port = packet.getPort();
+				address = packet.getAddress();
+				port = packet.getPort();
+				if (buf == null) {
+					buf = new byte[1];
+					buf[0] = 0;
+				}
 				packet = new DatagramPacket(buf, buf.length, address, port);
 				socket.send(packet);
 				// socket.close();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-
-	private byte[] ToBytes(int[] iaNums) {
-		byte[] baData = new byte[iaNums.length * 4];
+	
+	private byte[] ToBytes(final int[] iaNums) {
+		if (iaNums == null) {
+			return null;
+		}
+		final byte[] baData = new byte[iaNums.length * 4];
 		for (int i = 0; i < iaNums.length; i++) {
-			baData[(i * 4) + 0] = (byte) (iaNums[i] & 0xFF);
-			baData[(i * 4) + 1] = (byte) ((iaNums[i] & 0xFF00) / 0x100);
-			baData[(i * 4) + 2] = (byte) ((iaNums[i] & 0xFF0000) / 0x10000);
-			baData[(i * 4) + 3] = (byte) ((iaNums[i] & 0xFF000000) / 0x1000000);
+			baData[i * 4 + 0] = (byte) (iaNums[i] & 0xFF);
+			baData[i * 4 + 1] = (byte) ((iaNums[i] & 0xFF00) / 0x100);
+			baData[i * 4 + 2] = (byte) ((iaNums[i] & 0xFF0000) / 0x10000);
+			baData[i * 4 + 3] = (byte) ((iaNums[i] & 0xFF000000) / 0x1000000);
 		}
 		return baData;
 	}
-
-	public static int byteArrayToInt(byte[] b, int offset) {
+	
+	public static int byteArrayToInt(final byte[] b, final int offset) {
 		int value = (b[3 + offset] & 0xFF) << 24;
 		value += (b[2 + offset] & 0xFF) << 16;
 		value += (b[1 + offset] & 0xFF) << 8;
-		value += (b[0 + offset] & 0xFF);
+		value += b[0 + offset] & 0xFF;
 		return value;
 	}
 }

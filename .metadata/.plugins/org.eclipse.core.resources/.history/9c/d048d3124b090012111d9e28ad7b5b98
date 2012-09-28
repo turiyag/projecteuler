@@ -1,0 +1,27 @@
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+
+public class testPrimeClient {
+	final PrimeClient pc;
+	@Before
+	public void setUp() throws Exception {
+		pc = new PrimeClient(100);
+	}
+	
+	@After
+	public void tearDown() throws Exception {
+	}
+	
+	@Test
+	public void test() {
+		assertEquals(2, pc.)
+		for (int i = 0; i < pc.GetCount(); i++) {
+			System.out.println(pc.GetPrime(i));
+		}
+	}
+	
+}
