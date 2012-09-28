@@ -6,7 +6,7 @@ import java.net.InetAddress;
 
 public class PrimeServerThread extends Thread {
 	static final public int		PACKET_SIZE		= 8192;
-	static final public int		CALCULATE_TO	= Primes.PRIME_10SEC;
+	static final public int		CALCULATE_TO	= 19629383;
 	protected DatagramSocket	socket			= null;
 	protected BufferedReader	in				= null;
 	
