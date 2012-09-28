@@ -1,8 +1,10 @@
 import java.util.Arrays;
 
 public class Primes {
-	private int	_iPrimes[];
-	private int	_iTotients[];
+	private int			_iPrimes[];
+	private int			_iTotients[];
+	
+	static final int	DEFAULT_LIMIT	= 1000000;
 	
 	/**
 	 * Creates a new object and generates the initial primes
@@ -11,13 +13,14 @@ public class Primes {
 	 *            The upper limit of the range to search for primes.
 	 */
 	public Primes(final int iLimit) {
-		SieveOfAtkin(iLimit);
+		sieveOfAtkin(iLimit);
 	}
 	
 	/**
 	 * Creates a new object
 	 */
 	public Primes() {
+		sieveOfAtkin(DEFAULT_LIMIT);
 	}
 	
 	/**
@@ -28,7 +31,7 @@ public class Primes {
 	 * @deprecated
 	 */
 	@Deprecated
-	public void SieveOfEratosthenes(final int iCount) {
+	public void sieveOfEratosthenes(final int iCount) {
 		int lNum = 0;
 		int lRoot = 0;
 		int k = 0;
@@ -67,7 +70,7 @@ public class Primes {
 	 * @param iLimit
 	 *            The upper limit of the range to search for primes.
 	 */
-	public void SieveOfAtkin(final int iLimit) {
+	public void sieveOfAtkin(final int iLimit) {
 		// For tracking performance
 		// final long lTime = System.nanoTime();
 		final boolean[] isPrime = new boolean[iLimit + 1];

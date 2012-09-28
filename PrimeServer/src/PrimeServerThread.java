@@ -28,17 +28,17 @@ public class PrimeServerThread extends Thread {
 		DatagramPacket packet;
 		byte[] buf;
 		
-		System.out.println("Primes up to " + p.GetCount() + " have been generated.");
+		System.out.println("Primes up to " + p.getCount() + " have been generated.");
 		while (true) {
 			try {
 				buf = new byte[1];
 				packet = new DatagramPacket(buf, buf.length);
 				socket.receive(packet);
 				if (buf[0] == 2) {
-					buf = ToBytes(p.GetPrimes(0, PACKET_SIZE));
+					buf = ToBytes(p.getPrimes(0, PACKET_SIZE));
 					iCount = PACKET_SIZE;
 				} else {
-					buf = ToBytes(p.GetPrimes(iCount, iCount + PACKET_SIZE));
+					buf = ToBytes(p.getPrimes(iCount, iCount + PACKET_SIZE));
 					iCount += PACKET_SIZE;
 				}
 				

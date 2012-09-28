@@ -6,10 +6,12 @@ import org.junit.Test;
 
 public class testPrimes {
 	Primes	p;
+	Primes	p2;
 	Primes	pLarge;
 	
 	@Before
 	public void setUp() throws Exception {
+		p2 = new Primes(2); // Primes up to 2 (2)
 		p = new Primes(100); // Primes up to 100 (97)
 		pLarge = new Primes(10000000); // Primes up to 10 000 000 (9 999 991)
 	}
@@ -64,10 +66,17 @@ public class testPrimes {
 		assertArrayEquals(new int[] { 5, 7, 11, 13, 17 }, p.getPrimes(2, 7));
 		assertArrayEquals(null, p.getPrimes(7, 2));
 		assertArrayEquals(new int[] {}, p.getPrimes(7, 7));
-		assertArrayEquals(new int[] { 523, 541 }, p.getPrimes(98, 100));
+		assertArrayEquals(new int[] { 89, 97 }, p.getPrimes(p.getCount() - 2, p.getCount()));
 		assertArrayEquals(null, p.getPrimes(98, 1001));
 		assertArrayEquals(null, p.getPrimes(-2, 5));
 		assertArrayEquals(null, p.getPrimes(-2, -5));
 		
+	}
+	
+	@Test
+	public void testGetCount() {
+		assertEquals(1, p2.getCount());
+		assertEquals(25, p.getCount());
+		assertEquals(664579, pLarge.getCount());
 	}
 }
