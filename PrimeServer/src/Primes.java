@@ -1,30 +1,17 @@
 import java.util.Arrays;
 
 public class Primes {
-	static final public int	PRIME_1SEC		= 197438;
-	static final public int	PRIME_3SEC		= 499349;
-	static final public int	PRIME_5SEC		= 749724;
-	static final public int	PRIME_10SEC		= 1248507;
-	static final public int	PRIME_20SEC		= 1986321;
-	static final public int	PRIME_30SEC		= 2628901;
-	static final public int	PRIME_50SEC		= 3776991;
-	static final public int	PRIME_100SEC	= 6204466;
-	static final public int	PRIME_200SEC	= 10192081;
-	static final public int	PRIME_400SEC	= 16742539;
-	static final public int	PRIME_800SEC	= 27502981;
-	static final public int	PRIME_1600SEC	= 45179167;
-	
-	private int				_iPrimes[];
-	private int				_iTotients[];
+	private int	_iPrimes[];
+	private int	_iTotients[];
 	
 	/**
 	 * Creates a new object and generates the initial primes
 	 * 
 	 * @param iLimit
-	 *            The highest prime to generate to
+	 *            The upper limit of the range to search for primes.
 	 */
 	public Primes(final int iLimit) {
-		SieveOfAtkin(1000000000);
+		SieveOfAtkin(iLimit);
 	}
 	
 	/**
@@ -34,8 +21,7 @@ public class Primes {
 	}
 	
 	/**
-	 * Generates the initial primes. This method is deprecated in favor of the
-	 * Sieve Of Atkin.
+	 * Generates the initial primes. This method is deprecated in favor of the Sieve Of Atkin.
 	 * 
 	 * @param iCount
 	 *            The number of primes to generate
@@ -76,13 +62,14 @@ public class Primes {
 	}
 	
 	/**
-	 * Generates the initial primes
+	 * Generates the initial primes via a quick algorithm, which is orders of magnitude better than the Sieve of Erasthenes. This refactoring was done to improve the speed of the program.
 	 * 
-	 * @param iCount
-	 *            The number of primes to generate
+	 * @param iLimit
+	 *            The upper limit of the range to search for primes.
 	 */
 	public void SieveOfAtkin(final int iLimit) {
-		final long lTime = System.nanoTime();
+		// For tracking performance
+		// final long lTime = System.nanoTime();
 		final boolean[] isPrime = new boolean[iLimit + 1];
 		int x;
 		int y;
@@ -193,16 +180,17 @@ public class Primes {
 					}
 				}
 		}
-		System.out.println(_iPrimes.length + " primes up to " + _iPrimes[_iPrimes.length - 1] + " generated in " + (System.nanoTime() - lTime) / 1000000 + "ms");
+		// Print metrics
+		// System.out.println(_iPrimes.length + " primes up to " + _iPrimes[_iPrimes.length - 1] + " generated in " + (System.nanoTime() - lTime) / 1000000 + "ms");
 	}
 	
-	public int GetPrime(final int i) {
+	public int getPrime(final int i) {
 		return _iPrimes[i];
 	}
 	
 	// Retrieves an array of length=iLength of prime numbers from the iFrom'th
 	// number
-	public int[] GetPrimes(final int iFrom, final int iTo) {
+	public int[] getPrimes(final int iFrom, final int iTo) {
 		if (iFrom >= 0 && iTo >= iFrom && iTo <= _iPrimes.length) {
 			return Arrays.copyOfRange(_iPrimes, iFrom, iTo);
 		} else {
@@ -210,17 +198,17 @@ public class Primes {
 		}
 	}
 	
-	public int GetCount() {
+	public int getCount() {
 		return _iPrimes.length;
 	}
 	
 	public int FindPrime(final int iPrime) {
-		return FindPrime(iPrime, 0, GetCount());
+		return FindPrime(iPrime, 0, getCount());
 	}
 	
 	public int FindPrime(final int iPrime, final int iStart, final int iEnd) {
 		final int iMid = (iEnd - iStart) / 2 + iStart;
-		if (iMid >= GetCount()) {
+		if (iMid >= getCount()) {
 			return 0;
 		}
 		if (_iPrimes[iMid] == iPrime) {
@@ -253,7 +241,7 @@ public class Primes {
 	}
 	
 	public void GenTotients(final int iCount) {
-		if (iCount > _iPrimes[GetCount() - 1]) {
+		if (iCount > _iPrimes[getCount() - 1]) {
 			System.out.println("More prime numbers needed for totient function");
 			return;
 		}
