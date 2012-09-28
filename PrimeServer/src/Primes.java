@@ -24,7 +24,7 @@ public class Primes {
 	 *            The number of primes to generate
 	 */
 	public Primes(final int iCount) {
-		GenPrimes(iCount);
+		SieveOfEratosthenes(iCount);
 	}
 	
 	/**
@@ -39,7 +39,7 @@ public class Primes {
 	 * @param iCount
 	 *            The number of primes to generate
 	 */
-	public void GenPrimes(final int iCount) {
+	public void SieveOfEratosthenes(final int iCount) {
 		int lNum = 0;
 		int lRoot = 0;
 		int k = 0;
@@ -51,8 +51,9 @@ public class Primes {
 		
 		lNum = 2;
 		_iPrimes[0] = 2;
+		lNum = 1;
 		for (int i = 1; i < iCount;) {
-			lNum++;
+			lNum += 2;
 			
 			lRoot = (int) Math.sqrt(lNum);
 			k = 0;
@@ -68,9 +69,7 @@ public class Primes {
 				i++;
 			}
 		}
-		System.out.println(iCount + " primes up to " + _iPrimes[iCount - 1]
-				+ " generated in " + (System.nanoTime() - lTime) / 1000000
-				+ "ms");
+		System.out.println(iCount + " primes up to " + _iPrimes[iCount - 1] + " generated in " + (System.nanoTime() - lTime) / 1000000 + "ms");
 	}
 	
 	public int GetPrime(final int i) {
@@ -131,8 +130,7 @@ public class Primes {
 	
 	public void GenTotients(final int iCount) {
 		if (iCount > _iPrimes[GetCount() - 1]) {
-			System.out
-					.println("More prime numbers needed for totient function");
+			System.out.println("More prime numbers needed for totient function");
 			return;
 		}
 		_iTotients = new int[iCount];
