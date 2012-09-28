@@ -5,9 +5,10 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 public class PrimeServerThread extends Thread {
-	static final public int		PACKET_SIZE	= 8192;
-	protected DatagramSocket	socket		= null;
-	protected BufferedReader	in			= null;
+	static final public int		PACKET_SIZE		= 8192;
+	static final public int		CALCULATE_TO	= Primes.PRIME_10SEC;
+	protected DatagramSocket	socket			= null;
+	protected BufferedReader	in				= null;
 	
 	public PrimeServerThread() throws IOException {
 		this("PrimeServerThread");
@@ -20,7 +21,7 @@ public class PrimeServerThread extends Thread {
 	
 	@Override
 	public void run() {
-		final Primes p = new Primes(Primes.PRIME_10SEC);
+		final Primes p = new Primes(CALCULATE_TO);
 		int iCount = 0;
 		InetAddress address;
 		int port;
