@@ -1,7 +1,6 @@
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class PrimeClient extends Primes {
@@ -58,7 +57,7 @@ public class PrimeClient extends Primes {
 			if (packet.getLength() == 1) {
 				throw new Exception("Server did not generate enough primes to handle this request");
 			}
-			iaNums = ToInts(packet.getData());
+			iaNums = ByteOperations.byteArrayToIntArray(packet.getData());
 			for (i = 0; i < iaNums.length && iaNums[i] <= iLimit; i++) {
 				liPrimes.add(iaNums[i]);
 			}
@@ -76,54 +75,19 @@ public class PrimeClient extends Primes {
 					throw new Exception("Server did not generate enough primes to handle this request");
 				}
 				
-				iaNums = ToInts(packet.getData());
+				iaNums = ByteOperations.byteArrayToIntArray(packet.getData());
 				
 				for (i = 0; i < PACKET_SIZE && iaNums[i] <= iLimit; i++) {
 					liPrimes.add(iaNums[i]);
 				}
 			}
 			
-			_iaPrimes = convertIntegers(liPrimes);
+			_iaPrimes = ByteOperations.listIntToIntArray(liPrimes);
 			
 		} catch (final IOException e) {
 			e.printStackTrace();
 		} finally {
 			dsSocket.close();
 		}
-	}
-	
-	private static int[] ToInts(final byte[] baData) {
-		final int[] iaNums = new int[baData.length / 4];
-		for (int i = 0; i < iaNums.length; i++) {
-			iaNums[i] = byteArrayToInt(baData, i * 4);
-		}
-		return iaNums;
-	}
-	
-	public static int byteArrayToInt(final byte[] b, final int offset) {
-		int value = (b[3 + offset] & 0xFF) << 24;
-		value += (b[2 + offset] & 0xFF) << 16;
-		value += (b[1 + offset] & 0xFF) << 8;
-		value += b[0 + offset] & 0xFF;
-		return value;
-	}
-	
-	public static byte[] IntToByteArray(final int value) {
-		final byte[] baRet = new byte[4];
-		baRet[0] = (byte) (value & 0xFF);
-		baRet[1] = (byte) (value >> 8 & 0xFF);
-		baRet[2] = (byte) (value >> 16 & 0xFF);
-		baRet[3] = (byte) (value >> 24 & 0xFF);
-		
-		return baRet;
-	}
-	
-	public static int[] convertIntegers(final List<Integer> integers) {
-		final int[] ret = new int[integers.size()];
-		final Iterator<Integer> iterator = integers.iterator();
-		for (int i = 0; i < ret.length; i++) {
-			ret[i] = iterator.next().intValue();
-		}
-		return ret;
 	}
 }

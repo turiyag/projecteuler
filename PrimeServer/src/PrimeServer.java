@@ -36,10 +36,10 @@ public class PrimeServer extends Primes {
 				packet = new DatagramPacket(buf, buf.length);
 				_socket.receive(packet);
 				if (buf[0] == 2) {
-					buf = ToBytes(getPrimes(0, PACKET_SIZE));
+					buf = ByteOperations.intArraytoByteArray(getPrimes(0, PACKET_SIZE));
 					iCount = PACKET_SIZE;
 				} else {
-					buf = ToBytes(getPrimes(iCount, iCount + PACKET_SIZE));
+					buf = ByteOperations.intArraytoByteArray(getPrimes(iCount, iCount + PACKET_SIZE));
 					iCount += PACKET_SIZE;
 				}
 				
@@ -57,27 +57,5 @@ public class PrimeServer extends Primes {
 				e.printStackTrace();
 			}
 		}
-	}
-	
-	private static byte[] ToBytes(final int[] iaNums) {
-		if (iaNums == null) {
-			return null;
-		}
-		final byte[] baData = new byte[iaNums.length * 4];
-		for (int i = 0; i < iaNums.length; i++) {
-			baData[i * 4 + 0] = (byte) (iaNums[i] & 0xFF);
-			baData[i * 4 + 1] = (byte) ((iaNums[i] & 0xFF00) / 0x100);
-			baData[i * 4 + 2] = (byte) ((iaNums[i] & 0xFF0000) / 0x10000);
-			baData[i * 4 + 3] = (byte) ((iaNums[i] & 0xFF000000) / 0x1000000);
-		}
-		return baData;
-	}
-	
-	public static int byteArrayToInt(final byte[] b, final int offset) {
-		int value = (b[3 + offset] & 0xFF) << 24;
-		value += (b[2 + offset] & 0xFF) << 16;
-		value += (b[1 + offset] & 0xFF) << 8;
-		value += b[0 + offset] & 0xFF;
-		return value;
 	}
 }
