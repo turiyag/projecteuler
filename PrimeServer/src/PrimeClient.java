@@ -1,105 +1,94 @@
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-public class PrimeClient {
-	static final public int	PACKET_SIZE		= 8192;
-	int[]					iaPrimes;
+public class PrimeClient extends Primes {
+	static final public int			PACKET_SIZE		= 8192;
+	static final public int			DEFAULT_PORT	= 65521;
+	static final public InetAddress	DEFAULT_HOST	= InetAddress.getLoopbackAddress();
 	
-	static final public int	PRIME_1SEC		= 197438;
-	static final public int	PRIME_3SEC		= 499349;
-	static final public int	PRIME_5SEC		= 749724;
-	static final public int	PRIME_10SEC		= 1248507;
-	static final public int	PRIME_20SEC		= 1986321;
-	static final public int	PRIME_30SEC		= 2628901;
-	static final public int	PRIME_50SEC		= 3776991;
-	static final public int	PRIME_100SEC	= 6204466;
-	static final public int	PRIME_200SEC	= 10192081;
-	static final public int	PRIME_400SEC	= 16742539;
-	static final public int	PRIME_800SEC	= 27502981;
-	static final public int	PRIME_1600SEC	= 45179167;
-	
-	/**
-	 * @param args
-	 * @throws Exception
-	 */
-	public PrimeClient(final int iCount) throws Exception {
-		iaPrimes = new int[iCount];
-		XfrPrimes();
+	public PrimeClient(final InetAddress iaAddress, final int iPort, final int iLimit) throws Exception {
+		transferPrimes(iaAddress, iPort, iLimit);
 	}
 	
-	public int GetPrime(final int i) {
-		return iaPrimes[i];
+	public PrimeClient(final InetAddress iaAddress, final int iPort) throws Exception {
+		transferPrimes(iaAddress, iPort, DEFAULT_LIMIT);
 	}
 	
-	public int GetCount() {
-		return iaPrimes.length;
+	public PrimeClient(final InetAddress iaAddress) throws Exception {
+		transferPrimes(iaAddress, DEFAULT_PORT, DEFAULT_LIMIT);
 	}
 	
-	public void XfrPrimes() throws Exception {
-		int iCount = 0;
-		final DatagramSocket socket = new DatagramSocket();
+	public PrimeClient(final String hostname, final int iLimit) throws Exception {
+		transferPrimes(InetAddress.getByName(hostname), DEFAULT_PORT, iLimit);
+	}
+	
+	public PrimeClient(final String hostname) throws Exception {
+		transferPrimes(InetAddress.getByName(hostname), DEFAULT_PORT, DEFAULT_LIMIT);
+	}
+	
+	public PrimeClient(final int iLimit) throws Exception {
+		transferPrimes(DEFAULT_HOST, DEFAULT_PORT, iLimit);
+	}
+	
+	public PrimeClient() throws Exception {
+		transferPrimes(DEFAULT_HOST, DEFAULT_PORT, DEFAULT_LIMIT);
+	}
+	
+	private void transferPrimes(final InetAddress iaAddress, final int iPort, final int iLimit) throws Exception {
+		final DatagramSocket dsSocket = new DatagramSocket();
+		final byte[] baOut = new byte[1];
+		byte[] baIn;
+		DatagramPacket packet;
+		int[] iaNums;
+		int i;
+		final List<Integer> liPrimes = new ArrayList<Integer>();
+		
+		baOut[0] = 2;
 		try {
+			packet = new DatagramPacket(baOut, baOut.length, iaAddress, iPort);
+			dsSocket.send(packet);
 			
-			// send request
-			final byte[] baOut = new byte[1];
-			final InetAddress address = InetAddress.getByName("localhost");
-			baOut[0] = 2;
-			byte[] baIn;
-			DatagramPacket packet;
-			// get response
-			int[] iaNums;
+			baIn = new byte[PACKET_SIZE * 4];
+			packet = new DatagramPacket(baIn, baIn.length);
+			dsSocket.receive(packet);
 			
-			packet = new DatagramPacket(baOut, baOut.length, address, 65521);
-			socket.send(packet);
-			if (PACKET_SIZE > iaPrimes.length) {
+			if (packet.getLength() == 1) {
+				throw new Exception("Server did not generate enough primes to handle this request");
+			}
+			iaNums = ToInts(packet.getData());
+			for (i = 0; i < iaNums.length && iaNums[i] <= iLimit; i++) {
+				liPrimes.add(iaNums[i]);
+			}
+			baOut[0] = 3;
+			// Keep looping until above the limit.
+			while (i == PACKET_SIZE) {
+				packet = new DatagramPacket(baOut, baOut.length, iaAddress, iPort);
+				dsSocket.send(packet);
+				
 				baIn = new byte[PACKET_SIZE * 4];
 				packet = new DatagramPacket(baIn, baIn.length);
-				socket.receive(packet);
+				dsSocket.receive(packet);
+				
 				if (packet.getLength() == 1) {
-					throw new Exception("Server did not generate enough primes");
+					throw new Exception("Server did not generate enough primes to handle this request");
 				}
+				
 				iaNums = ToInts(packet.getData());
 				
-				for (int i = 0; i < iaPrimes.length; i++) {
-					iaPrimes[i] = iaNums[i];
-				}
-			} else {
-				baOut[0] = 3;
-				while (iCount < iaPrimes.length - PACKET_SIZE) {
-					baIn = new byte[PACKET_SIZE * 4];
-					packet = new DatagramPacket(baIn, baIn.length);
-					socket.receive(packet);
-					if (packet.getLength() == 1) {
-						throw new Exception("Server did not generate enough primes");
-					}
-					iaNums = ToInts(packet.getData());
-					
-					for (int i = 0; i < PACKET_SIZE; i++) {
-						iaPrimes[i + iCount] = iaNums[i];
-					}
-					
-					packet = new DatagramPacket(baOut, baOut.length, address, 65521);
-					socket.send(packet);
-					
-					iCount += PACKET_SIZE;
-				}
-				
-				baIn = new byte[PACKET_SIZE * 4];
-				packet = new DatagramPacket(baIn, baIn.length);
-				socket.receive(packet);
-				iaNums = ToInts(packet.getData());
-				
-				for (int i = 0; i + iCount < iaPrimes.length; i++) {
-					iaPrimes[i + iCount] = iaNums[i];
+				for (i = 0; i < PACKET_SIZE && iaNums[i] <= iLimit; i++) {
+					liPrimes.add(iaNums[i]);
 				}
 			}
 			
-			// display response
+			_iaPrimes = convertIntegers(liPrimes);
 			
 		} catch (final IOException e) {
 			e.printStackTrace();
 		} finally {
-			socket.close();
+			dsSocket.close();
 		}
 	}
 	
@@ -127,5 +116,14 @@ public class PrimeClient {
 		baRet[3] = (byte) (value >> 24 & 0xFF);
 		
 		return baRet;
+	}
+	
+	public static int[] convertIntegers(final List<Integer> integers) {
+		final int[] ret = new int[integers.size()];
+		final Iterator<Integer> iterator = integers.iterator();
+		for (int i = 0; i < ret.length; i++) {
+			ret[i] = iterator.next().intValue();
+		}
+		return ret;
 	}
 }

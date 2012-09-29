@@ -1,8 +1,8 @@
 import java.util.Arrays;
 
 public class Primes {
-	private int			_iPrimes[];
-	private int			_iTotients[];
+	protected int		_iaPrimes[];
+	protected int		_iaTotients[];
 	
 	static final int	DEFAULT_LIMIT	= 1000000;
 	
@@ -18,9 +18,11 @@ public class Primes {
 	
 	/**
 	 * Creates a new object
+	 * 
 	 */
+	
 	public Primes() {
-		sieveOfAtkin(DEFAULT_LIMIT);
+		// Do nothing
 	}
 	
 	/**
@@ -38,11 +40,10 @@ public class Primes {
 		final long lTime = System.nanoTime();
 		boolean bIsComposite = false;
 		
-		_iPrimes = new int[iCount];
-		System.out.println("Memory allocated");
+		_iaPrimes = new int[iCount];
 		
 		lNum = 2;
-		_iPrimes[0] = 2;
+		_iaPrimes[0] = 2;
 		lNum = 1;
 		for (int i = 1; i < iCount;) {
 			lNum += 2;
@@ -50,18 +51,18 @@ public class Primes {
 			lRoot = (int) Math.sqrt(lNum);
 			k = 0;
 			bIsComposite = false;
-			while (_iPrimes[k] <= lRoot && bIsComposite == false) {
-				if (lNum % _iPrimes[k] == 0) {
+			while (_iaPrimes[k] <= lRoot && bIsComposite == false) {
+				if (lNum % _iaPrimes[k] == 0) {
 					bIsComposite = true;
 				}
 				k++;
 			}
 			if (bIsComposite == false) {
-				_iPrimes[i] = lNum;
+				_iaPrimes[i] = lNum;
 				i++;
 			}
 		}
-		System.out.println(iCount + " primes up to " + _iPrimes[iCount - 1] + " generated in " + (System.nanoTime() - lTime) / 1000000 + "ms");
+		System.out.println(iCount + " primes up to " + _iaPrimes[iCount - 1] + " generated in " + (System.nanoTime() - lTime) / 1000000 + "ms");
 	}
 	
 	/**
@@ -84,32 +85,30 @@ public class Primes {
 		int nMod12;
 		final int sqrtLimit = (int) Math.sqrt(iLimit);
 		
-		System.out.println("Memory allocated");
-		
 		switch (iLimit) {
 			case 0:
 			case 1:
-				_iPrimes = null;
+				_iaPrimes = null;
 				break;
 			case 2:
-				_iPrimes = new int[1];
-				_iPrimes[0] = 2;
+				_iaPrimes = new int[1];
+				_iaPrimes[0] = 2;
 				break;
 			case 3:
-				_iPrimes = new int[2];
-				_iPrimes[0] = 2;
-				_iPrimes[1] = 3;
+				_iaPrimes = new int[2];
+				_iaPrimes[0] = 2;
+				_iaPrimes[1] = 3;
 				break;
 			case 4:
-				_iPrimes = new int[2];
-				_iPrimes[0] = 2;
-				_iPrimes[1] = 3;
+				_iaPrimes = new int[2];
+				_iaPrimes[0] = 2;
+				_iaPrimes[1] = 3;
 				break;
 			case 5:
-				_iPrimes = new int[3];
-				_iPrimes[0] = 2;
-				_iPrimes[1] = 3;
-				_iPrimes[2] = 5;
+				_iaPrimes = new int[3];
+				_iaPrimes[0] = 2;
+				_iaPrimes[1] = 3;
+				_iaPrimes[2] = 5;
 				break;
 			default:
 				for (x = 1; x <= sqrtLimit; x++) {
@@ -172,65 +171,65 @@ public class Primes {
 						iCount++;
 					}
 				}
-				_iPrimes = new int[iCount];
-				_iPrimes[0] = 2;
-				_iPrimes[1] = 3;
+				_iaPrimes = new int[iCount];
+				_iaPrimes[0] = 2;
+				_iaPrimes[1] = 3;
 				i = 2;
 				for (n = 5; n < isPrime.length; n += 2) {
 					if (isPrime[n]) {
-						_iPrimes[i] = n;
+						_iaPrimes[i] = n;
 						i++;
 					}
 				}
 		}
 		// Print metrics
-		// System.out.println(_iPrimes.length + " primes up to " + _iPrimes[_iPrimes.length - 1] + " generated in " + (System.nanoTime() - lTime) / 1000000 + "ms");
+		// System.out.println(_iaPrimes.length + " primes up to " + _iaPrimes[_iaPrimes.length - 1] + " generated in " + (System.nanoTime() - lTime) / 1000000 + "ms");
 	}
 	
 	public int getPrime(final int i) {
-		return _iPrimes[i];
+		return _iaPrimes[i];
 	}
 	
 	// Retrieves an array of length=iLength of prime numbers from the iFrom'th
 	// number
 	public int[] getPrimes(final int iFrom, final int iTo) {
-		if (iFrom >= 0 && iTo >= iFrom && iTo <= _iPrimes.length) {
-			return Arrays.copyOfRange(_iPrimes, iFrom, iTo);
+		if (iFrom >= 0 && iTo >= iFrom && iTo <= _iaPrimes.length) {
+			return Arrays.copyOfRange(_iaPrimes, iFrom, iTo);
 		} else {
 			return null;
 		}
 	}
 	
 	public int getCount() {
-		return _iPrimes.length;
+		return _iaPrimes.length;
 	}
 	
-	public int FindPrime(final int iPrime) {
-		return FindPrime(iPrime, 0, getCount());
+	public int findPrime(final int iPrime) {
+		return findPrime(iPrime, 0, getCount());
 	}
 	
-	public int FindPrime(final int iPrime, final int iStart, final int iEnd) {
+	public int findPrime(final int iPrime, final int iStart, final int iEnd) {
 		final int iMid = (iEnd - iStart) / 2 + iStart;
 		if (iMid >= getCount()) {
 			return 0;
 		}
-		if (_iPrimes[iMid] == iPrime) {
+		if (_iaPrimes[iMid] == iPrime) {
 			return iMid;
 		} else if (iStart == iEnd) {
 			return 0;
-		} else if (_iPrimes[iMid] < iPrime) {
-			return FindPrime(iPrime, iMid + 1, iEnd);
+		} else if (_iaPrimes[iMid] < iPrime) {
+			return findPrime(iPrime, iMid + 1, iEnd);
 		} else {
-			return FindPrime(iPrime, iStart, iMid);
+			return findPrime(iPrime, iStart, iMid);
 		}
 	}
 	
-	public int[] Factor(int iNum) {
+	public int[] factor(int iNum) {
 		final int[] iaDivs = new int[50];
 		int iCount = 0;
-		for (int i = 0; _iPrimes[i] <= iNum; i++) {
-			if (iNum % _iPrimes[i] == 0) {
-				iNum /= _iPrimes[i];
+		for (int i = 0; _iaPrimes[i] <= iNum; i++) {
+			if (iNum % _iaPrimes[i] == 0) {
+				iNum /= _iaPrimes[i];
 				iaDivs[iCount] = i;
 				iCount++;
 				i--;
@@ -243,29 +242,29 @@ public class Primes {
 		return iaRet;
 	}
 	
-	public void GenTotients(final int iCount) {
-		if (iCount > _iPrimes[getCount() - 1]) {
+	public void genTotients(final int iCount) {
+		if (iCount > _iaPrimes[getCount() - 1]) {
 			System.out.println("More prime numbers needed for totient function");
 			return;
 		}
-		_iTotients = new int[iCount];
+		_iaTotients = new int[iCount];
 		
 		for (int i = 0; i < iCount; i++) {
-			_iTotients[i] = Totient(i);
+			_iaTotients[i] = totient(i);
 		}
 		
 	}
 	
-	public int Totient(final int iNum) {
-		final int[] iaFactors = Factor(iNum);
+	public int totient(final int iNum) {
+		final int[] iaFactors = factor(iNum);
 		if (iaFactors.length == 1) {
 			return iNum - 1;
 		}
-		final int iMax = iNum / _iPrimes[iaFactors[1]];
+		final int iMax = iNum / _iaPrimes[iaFactors[1]];
 		int iCoprimeCount = 0;
 		for (int i = 1; i < iMax; i++) {
 			for (int k = 0; k < iaFactors.length; k++) {
-				if (i % _iPrimes[iaFactors[k]] == 0) {
+				if (i % _iaPrimes[iaFactors[k]] == 0) {
 					k = iaFactors.length;
 					iCoprimeCount--;
 				}

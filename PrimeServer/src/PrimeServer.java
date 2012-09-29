@@ -6,8 +6,8 @@ import java.net.SocketException;
 
 public class PrimeServer extends Primes {
 	static final public int	PACKET_SIZE		= 8192;
-	static final public int	DEFAULT_LIMIT	= 19629383;
 	static final public int	DEFAULT_PORT	= 65521;
+	static final int		DEFAULT_LIMIT	= 2000000;
 	
 	private DatagramSocket	_socket			= null;
 	
