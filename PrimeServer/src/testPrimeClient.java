@@ -48,7 +48,12 @@ public class testPrimeClient {
 		assertEquals(3, p.getPrime(1));
 		assertEquals(5, p.getPrime(2));
 		assertEquals(7, p.getPrime(3));
-		assertArrayEquals(new int[] { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97 }, p.getPrimes(0, 25));
+		try {
+			assertArrayEquals(new int[] { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97 }, p.getPrimes(0, 25));
+		} catch (final Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try {
 			p.getPrime(p.getCount());
 			fail("Array bound breach should have errored");

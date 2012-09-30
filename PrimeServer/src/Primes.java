@@ -192,11 +192,11 @@ public class Primes {
 	
 	// Retrieves an array of length=iLength of prime numbers from the iFrom'th
 	// number
-	public int[] getPrimes(final int iFrom, final int iTo) {
+	public int[] getPrimes(final int iFrom, final int iTo) throws Exception {
 		if (iFrom >= 0 && iTo >= iFrom && iTo <= _iaPrimes.length) {
 			return Arrays.copyOfRange(_iaPrimes, iFrom, iTo);
 		} else {
-			return null;
+			throw new Exception("Not enough primes generated to fulfill request");
 		}
 	}
 	

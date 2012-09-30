@@ -38,48 +38,35 @@ public class PrimeClient extends Primes {
 	
 	private void transferPrimes(final InetAddress iaAddress, final int iPort, final int iLimit) throws Exception {
 		final DatagramSocket dsSocket = new DatagramSocket();
-		final byte[] baOut = new byte[1];
-		byte[] baIn;
-		DatagramPacket packet;
+		int iCount = 0;
+		byte[] baRequestedOffset;
+		byte[] baReceivedPrimes;
+		DatagramPacket dpPacket;
 		int[] iaNums;
-		int i;
+		int i = PACKET_SIZE;
 		final List<Integer> liPrimes = new ArrayList<Integer>();
 		
-		baOut[0] = 2;
 		try {
-			packet = new DatagramPacket(baOut, baOut.length, iaAddress, iPort);
-			dsSocket.send(packet);
-			
-			baIn = new byte[PACKET_SIZE * 4];
-			packet = new DatagramPacket(baIn, baIn.length);
-			dsSocket.receive(packet);
-			
-			if (packet.getLength() == 1) {
-				throw new Exception("Server did not generate enough primes to handle this request");
-			}
-			iaNums = ByteOperations.byteArrayToIntArray(packet.getData());
-			for (i = 0; i < iaNums.length && iaNums[i] <= iLimit; i++) {
-				liPrimes.add(iaNums[i]);
-			}
-			baOut[0] = 3;
 			// Keep looping until above the limit.
 			while (i == PACKET_SIZE) {
-				packet = new DatagramPacket(baOut, baOut.length, iaAddress, iPort);
-				dsSocket.send(packet);
+				baRequestedOffset = ByteOperations.intToFourByteArray(iCount);
+				dpPacket = new DatagramPacket(baRequestedOffset, baRequestedOffset.length, iaAddress, iPort);
+				dsSocket.send(dpPacket);
 				
-				baIn = new byte[PACKET_SIZE * 4];
-				packet = new DatagramPacket(baIn, baIn.length);
-				dsSocket.receive(packet);
+				baReceivedPrimes = new byte[PACKET_SIZE * 4];
+				dpPacket = new DatagramPacket(baReceivedPrimes, baReceivedPrimes.length);
+				dsSocket.receive(dpPacket);
 				
-				if (packet.getLength() == 1) {
+				if (dpPacket.getLength() == 1) {
 					throw new Exception("Server did not generate enough primes to handle this request");
 				}
 				
-				iaNums = ByteOperations.byteArrayToIntArray(packet.getData());
+				iaNums = ByteOperations.byteArrayToIntArray(dpPacket.getData());
 				
 				for (i = 0; i < PACKET_SIZE && iaNums[i] <= iLimit; i++) {
 					liPrimes.add(iaNums[i]);
 				}
+				iCount += PACKET_SIZE;
 			}
 			
 			_iaPrimes = ByteOperations.listIntToIntArray(liPrimes);

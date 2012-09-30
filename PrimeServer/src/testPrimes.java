@@ -33,7 +33,12 @@ public class testPrimes {
 		assertEquals(3, p.getPrime(1));
 		assertEquals(5, p.getPrime(2));
 		assertEquals(7, p.getPrime(3));
-		assertArrayEquals(new int[] { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97 }, p.getPrimes(0, p.getCount()));
+		try {
+			assertArrayEquals(new int[] { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97 }, p.getPrimes(0, p.getCount()));
+		} catch (final Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try {
 			p.getPrime(100);
 			fail("Array bound breach should have errored");
@@ -62,14 +67,19 @@ public class testPrimes {
 	
 	@Test
 	public void testGetArray() {
-		assertArrayEquals(new int[] { 2, 3, 5, 7, 11 }, p.getPrimes(0, 5));
-		assertArrayEquals(new int[] { 5, 7, 11, 13, 17 }, p.getPrimes(2, 7));
-		assertArrayEquals(null, p.getPrimes(7, 2));
-		assertArrayEquals(new int[] {}, p.getPrimes(7, 7));
-		assertArrayEquals(new int[] { 89, 97 }, p.getPrimes(p.getCount() - 2, p.getCount()));
-		assertArrayEquals(null, p.getPrimes(98, 1001));
-		assertArrayEquals(null, p.getPrimes(-2, 5));
-		assertArrayEquals(null, p.getPrimes(-2, -5));
+		try {
+			assertArrayEquals(new int[] { 2, 3, 5, 7, 11 }, p.getPrimes(0, 5));
+			assertArrayEquals(new int[] { 5, 7, 11, 13, 17 }, p.getPrimes(2, 7));
+			assertArrayEquals(null, p.getPrimes(7, 2));
+			assertArrayEquals(new int[] {}, p.getPrimes(7, 7));
+			assertArrayEquals(new int[] { 89, 97 }, p.getPrimes(p.getCount() - 2, p.getCount()));
+			assertArrayEquals(null, p.getPrimes(98, 1001));
+			assertArrayEquals(null, p.getPrimes(-2, 5));
+			assertArrayEquals(null, p.getPrimes(-2, -5));
+		} catch (final Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	

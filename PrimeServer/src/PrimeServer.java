@@ -23,36 +23,31 @@ public class PrimeServer extends Primes {
 	}
 	
 	private void startListening(int port) throws SocketException {
-		
-		int iCount = 0;
 		InetAddress address;
 		DatagramPacket packet;
-		byte[] buf;
+		final byte[] baRequestedOffset = new byte[4];
+		int iRequestedOffset;
+		int[] iaPrimes;
+		byte[] baPrimes;
 		_socket = new DatagramSocket(port);
 		
 		while (true) {
 			try {
-				buf = new byte[1];
-				packet = new DatagramPacket(buf, buf.length);
+				packet = new DatagramPacket(baRequestedOffset, baRequestedOffset.length);
 				_socket.receive(packet);
-				if (buf[0] == 2) {
-					buf = ByteOperations.intArraytoByteArray(getPrimes(0, PACKET_SIZE));
-					iCount = PACKET_SIZE;
-				} else {
-					buf = ByteOperations.intArraytoByteArray(getPrimes(iCount, iCount + PACKET_SIZE));
-					iCount += PACKET_SIZE;
+				iRequestedOffset = ByteOperations.fourByteArrayToInt(baRequestedOffset);
+				try {
+					iaPrimes = getPrimes(iRequestedOffset, iRequestedOffset + PACKET_SIZE);
+					baPrimes = ByteOperations.intArraytoByteArray(iaPrimes);
+				} catch (final Exception e) {
+					baPrimes = new byte[1];
+					baPrimes[0] = 0;
 				}
-				
 				// send the response to the client at "address" and "port"
 				address = packet.getAddress();
 				port = packet.getPort();
-				if (buf == null) {
-					buf = new byte[1];
-					buf[0] = 0;
-				}
-				packet = new DatagramPacket(buf, buf.length, address, port);
+				packet = new DatagramPacket(baPrimes, baPrimes.length, address, port);
 				_socket.send(packet);
-				// socket.close();
 			} catch (final IOException e) {
 				e.printStackTrace();
 			}
