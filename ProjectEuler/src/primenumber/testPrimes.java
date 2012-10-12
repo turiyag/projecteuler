@@ -105,5 +105,28 @@ public class testPrimes {
 		assertTrue(Primes.isPrime(2029));
 		assertTrue(Primes.isPrime(3253));
 		assertTrue(Primes.isPrime(48611));
+		
+	}
+	
+	@Test
+	public void testAreCoprime() {
+		try {
+			assertTrue(p.areCoprime(2, 3));
+			assertTrue(p.areCoprime(2, 7));
+			assertTrue(p.areCoprime(5, 9));
+			assertFalse(p.areCoprime(6, 9));
+			assertFalse(p.areCoprime(6, 9));
+			assertFalse(p.areCoprime(6, 32));
+			assertTrue(p.areCoprime(12, 17));
+		} catch (final Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			p.areCoprime(-1, 3);
+			fail("This should have failed.");
+		} catch (final Exception e) {
+			
+		}
 	}
 }

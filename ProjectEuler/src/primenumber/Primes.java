@@ -2,6 +2,9 @@ package primenumber;
 
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedList;
+import extras.ByteOperations;
 
 public class Primes {
 	protected int		_iaPrimes[];
@@ -232,22 +235,60 @@ public class Primes {
 		}
 	}
 	
-	public int[] factor(int iNum) {
-		final int[] iaDivs = new int[50];
-		int iCount = 0;
+	public int[] factor(final int iNum) {
+		return ByteOperations.listIntToIntArray(factorLinkList(iNum));
+	}
+	
+	public LinkedList<Integer> factorLinkList(int iNum) {
+		final LinkedList<Integer> liDivs = new LinkedList<Integer>();
 		for (int i = 0; _iaPrimes[i] <= iNum; i++) {
 			if (iNum % _iaPrimes[i] == 0) {
 				iNum /= _iaPrimes[i];
-				iaDivs[iCount] = i;
-				iCount++;
+				liDivs.add(_iaPrimes[i]);
 				i--;
 			}
 		}
-		final int[] iaRet = new int[iCount];
-		for (int k = 0; k < iCount; k++) {
-			iaRet[k] = iaDivs[k];
+		return liDivs;
+	}
+	
+	public boolean areCoprime(final int a, final int b) throws Exception {
+		if (a < 2) {
+			if (a == 1 && b >= 1) {
+				return true;
+			}
+			throw new Exception("First argument less than 1");
 		}
-		return iaRet;
+		if (b < 2) {
+			if (b == 1) {
+				return true;
+			}
+			throw new Exception("Second argument less than 1");
+		}
+		final LinkedList<Integer> liAFactors = factorLinkList(a);
+		final LinkedList<Integer> liBFactors = factorLinkList(b);
+		final Iterator<Integer> itAFactors = liAFactors.iterator();
+		final Iterator<Integer> itBFactors = liBFactors.iterator();
+		boolean bStillWorking = true;
+		int iACurr = itAFactors.next().intValue();
+		int iBCurr = itBFactors.next().intValue();
+		while (bStillWorking) {
+			if (iACurr == iBCurr) {
+				return false;
+			} else if (iACurr > iBCurr) {
+				if (itBFactors.hasNext()) {
+					iBCurr = itBFactors.next().intValue();
+				} else {
+					bStillWorking = false;
+				}
+			} else {
+				if (itAFactors.hasNext()) {
+					iACurr = itAFactors.next().intValue();
+				} else {
+					bStillWorking = false;
+				}
+			}
+		}
+		return true;
 	}
 	
 	public void genTotients(final int iCount) {
