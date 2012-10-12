@@ -82,7 +82,6 @@ public class testPrimes {
 			// TODO Auto-generated catch block
 			// e.printStackTrace();
 		}
-		
 	}
 	
 	@Test
@@ -96,6 +95,7 @@ public class testPrimes {
 	public void testIsPrime() {
 		assertTrue(Primes.isPrime(2));
 		assertTrue(Primes.isPrime(3));
+		assertFalse(Primes.isPrime(4));
 		assertTrue(Primes.isPrime(5));
 		assertTrue(Primes.isPrime(7));
 		assertTrue(Primes.isPrime(11));

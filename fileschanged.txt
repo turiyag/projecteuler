@@ -1,0 +1,323 @@
+commit 89c9d53331bed0336ab4d3bc35aa60375765aed9
+Author: Mitchell <turiyag@hotmail.com>
+Date:   Fri Sep 28 00:17:21 2012 -0700
+
+    Initial commit
+
+README.md
+
+
+commit 06ba02b530969f7e3880d3a4bba7d3b64b35b33c
+Author: Mitchell Ludwig <mitch@edgemontgeek.com>
+Date:   Fri Sep 28 01:33:03 2012 -0600
+
+    Initial Code inserted, Eclipse workspace initialized
+
+075 - Find the number of different lengths of wire that can form a right angle triangle in only one way
+PrimeClient/src/PrimeClient.java
+PrimeClient/src/TestMain.java
+PrimeServer/src/PrimeServer.java
+PrimeServer/src/PrimeServerThread.java
+PrimeServer/src/Primes.java
+
+
+commit 7288453a7d70b9df79aee6de2adffe93d7fbb293
+Author: Mitchell Ludwig <mitch@edgemontgeek.com>
+Date:   Fri Sep 28 03:30:09 2012 -0600
+
+    Created tests, which revealed some bugs, so I fixed the bugs (not to be considered a refactoring). Project is now ready to be refactored.
+
+PrimeClient/src/PrimeClient.java
+PrimeClient/src/testPrimeClient.java
+PrimeServer/src/PrimeServerThread.java
+PrimeServer/src/Primes.java
+PrimeServer/src/testPrimes.java
+
+
+commit ac848a156f5292180f7ea1f41fb237d8907a67bb
+Author: Mitchell Ludwig <mitch@edgemontgeek.com>
+Date:   Fri Sep 28 03:38:29 2012 -0600
+
+    Applied: Replace Magic Number with Symbolic Constant, p204
+
+PrimeServer/src/PrimeServerThread.java
+
+
+commit 5e7ae38b4fb660c54e155275dbffad69f233620e
+Author: Mitchell Ludwig <mitch@edgemontgeek.com>
+Date:   Fri Sep 28 03:48:05 2012 -0600
+
+    Applied: Rename Method, p273
+
+PrimeServer/src/Primes.java
+
+
+commit 7994dfb36b08d6c0be959708a8d7b0f35d85a3be
+Author: Mitchell Ludwig <mitch@edgemontgeek.com>
+Date:   Fri Sep 28 05:59:14 2012 -0600
+
+    Applied: Substitute Algorithm, p139
+
+PrimeServer/src/PrimeServerThread.java
+PrimeServer/src/Primes.java
+
+
+commit 59ac562f9b8201cc7500f60fd8ef90eb0497214d
+Author: Mitchell Ludwig <mitch@edgemontgeek.com>
+Date:   Fri Sep 28 06:00:10 2012 -0600
+
+    Applied: Substitute Algorithm, p139, revised due to forgotten save
+
+PrimeServer/src/Primes.java
+
+
+commit 1c651568b9ae758fc56451808946ac920b16ab1a
+Author: Mitchell Ludwig <mitch@edgemontgeek.com>
+Date:   Fri Sep 28 06:01:10 2012 -0600
+
+    Synced Eclipse metadata. No changes to the code
+
+
+
+commit 848d2cd28ef1cf3f023cfde35f535e6c8813d954
+Author: Mitchell Ludwig <mitch@edgemontgeek.com>
+Date:   Fri Sep 28 06:26:38 2012 -0600
+
+    Applied: Rename Method, p 273 to correct case of getters. Removed now unnecessary Symbolic Constants. Improved testing suite.
+
+PrimeServer/src/Primes.java
+PrimeServer/src/testPrimes.java
+
+
+commit aec178eb7f8775fabd270f8a01b1ae1b24a66dfb
+Author: Mitchell Ludwig <mitch@edgemontgeek.com>
+Date:   Fri Sep 28 06:33:21 2012 -0600
+
+    Applied: Rename Method, p 273 further to correct other errors, and further improved testing suite
+
+PrimeServer/src/PrimeServerThread.java
+PrimeServer/src/Primes.java
+PrimeServer/src/testPrimes.java
+
+
+commit 580ba7a09ddced500bf56cb18c83c1d132f32595
+Author: Mitchell Ludwig <mitch@edgemontgeek.com>
+Date:   Fri Sep 28 07:03:03 2012 -0600
+
+    Applied: Replace Delegation with Inheritance, p 355. I moved most of the functionality of PrimeServerThread to the PrimeServer class and made PrimeServer a subclass of Primes. I also added a minimalistic test class, which, when used in conjunction with PrimeClient, proves that PrimeServer is working correctly
+
+PrimeServer/src/PrimeServer.java
+PrimeServer/src/PrimeServerThread.java
+PrimeServer/src/testPrimeServer.java
+
+
+commit e98326452c8eebcd5ae5c0e2bce0eb28fa65cc77
+Author: Mitchell Ludwig <mitch@edgemontgeek.com>
+Date:   Fri Sep 28 07:10:07 2012 -0600
+
+    Copy/Pasted in the PrimeClient code in preparation for another Replace Delegation with Inheritance, p 355
+
+PrimeServer/src/PrimeClient.java
+PrimeServer/src/testPrimeClient.java
+PrimeServer/src/testPrimeServer.java
+
+
+commit 0a6b0ad7b9d7dbc64883b1ab4e31cf35ff311bcb
+Author: Mitchell Ludwig <mitch@edgemontgeek.com>
+Date:   Sat Sep 29 08:10:57 2012 -0600
+
+    Applied: Replace Delegation with Inheritance, p355
+
+PrimeServer/src/PrimeClient.java
+PrimeServer/src/PrimeServer.java
+PrimeServer/src/Primes.java
+PrimeServer/src/testPrimeClient.java
+
+
+commit 73e78228935ec668c8c81d1741aba5cca0577afe
+Author: Mitchell Ludwig <mitch@edgemontgeek.com>
+Date:   Sat Sep 29 09:41:41 2012 -0600
+
+    Applied: Replace Method with Method Object, p135. Also applied: Move Method, p142
+
+PrimeServer/src/ByteOperations.java
+PrimeServer/src/PrimeClient.java
+PrimeServer/src/PrimeServer.java
+PrimeServer/src/temp.java
+PrimeServer/src/testByteOperations.java
+
+
+commit 18bd5add5661d4078eef6fdbe6139cb24b2a0125
+Author: Mitchell Ludwig <mitch@edgemontgeek.com>
+Date:   Sun Sep 30 13:04:29 2012 -0600
+
+    Applied: Rename Local Variable, Substitute Algorithm, p139, Inline Class, p154
+
+PrimeServer/src/PrimeClient.java
+PrimeServer/src/PrimeServer.java
+PrimeServer/src/Primes.java
+PrimeServer/src/testPrimeClient.java
+PrimeServer/src/testPrimes.java
+
+
+commit 9e9844d3488bf6cdd8f8c5f688b19fbc6ba651fc
+Author: Mitchell Ludwig <mitch@edgemontgeek.com>
+Date:   Sun Sep 30 13:25:37 2012 -0600
+
+    Removed old files that don't matter
+
+.gitignore
+PrimeClient/src/TestMain.java
+PrimeServer/src/PrimeServerThread.java
+
+
+commit e6ad0811bc65fb2750781c7991fb1269b0208b2a
+Author: Mitchell Ludwig <mitch@edgemontgeek.com>
+Date:   Sun Sep 30 13:31:32 2012 -0600
+
+    Removed older, deprecated files from Git tracking, now ignoring Eclipse configuration
+
+075 - Find the number of different lengths of wire that can form a right angle triangle in only one way
+PrimeClient/src/PrimeClient.java
+PrimeClient/src/testPrimeClient.java
+
+
+commit f22fa244eed9944732a2726813a6539bfbead8f0
+Author: Mitchell Ludwig <mitch@edgemontgeek.com>
+Date:   Tue Oct 9 19:10:26 2012 -0600
+
+    Cleaned up working directory
+
+PrimeServer/src/ByteOperations.java
+PrimeServer/src/PrimeClient.java
+PrimeServer/src/PrimeServer.java
+PrimeServer/src/Primes.java
+PrimeServer/src/temp.java
+PrimeServer/src/testByteOperations.java
+PrimeServer/src/testPrimeClient.java
+PrimeServer/src/testPrimeServer.java
+PrimeServer/src/testPrimes.java
+
+
+commit 9ae3824f8694f3307f5a479b129327f6f4ab23cd
+Author: Mitchell Ludwig <mitch@edgemontgeek.com>
+Date:   Tue Oct 9 19:11:53 2012 -0600
+
+    Restructured program
+
+Extras/AVLNode.java
+Extras/AVLTree.java
+Extras/BTNode.java
+Extras/BinaryTree.java
+Extras/Bitmap.java
+Extras/Figurate.java
+Extras/Files.java
+Extras/Fraction.java
+Extras/FractionBig.java
+Extras/FractionLong.java
+Extras/LinkList.java
+Extras/ListNode.java
+Extras/MainClass.java
+Extras/NumHelp.java
+Extras/OldCode.java
+Extras/PairIntInt.java
+Extras/Palindromes.java
+Extras/PokerHand.java
+Extras/PrimeTestMillerRabin.java
+Extras/Sorter.java
+Extras/StrPair.java
+Extras/WordPosPair.java
+PrimeServer/src/Extras/ByteOperations.java
+PrimeServer/src/Extras/NumHelp.java
+PrimeServer/src/Extras/testByteOperations.java
+PrimeServer/src/PrimeNumbers/PrimeClient.java
+PrimeServer/src/PrimeNumbers/PrimeServer.java
+PrimeServer/src/PrimeNumbers/PrimeTestMillerRabin.java
+PrimeServer/src/PrimeNumbers/Primes.java
+PrimeServer/src/PrimeNumbers/testPrimeClient.java
+PrimeServer/src/PrimeNumbers/testPrimeServer.java
+PrimeServer/src/PrimeNumbers/testPrimes.java
+PrimeServer/src/Problem/Problem75.java
+
+
+commit 8b06c9b9c63733dc5569f756d7d3a30b6a5d9d38
+Author: Mitchell Ludwig <mitch@edgemontgeek.com>
+Date:   Thu Oct 11 02:50:58 2012 -0600
+
+    Added all sorts of old extras as prep to solve problem
+
+Extras/AVLNode.java
+Extras/AVLTree.java
+Extras/BTNode.java
+Extras/BinaryTree.java
+Extras/Bitmap.java
+Extras/Figurate.java
+Extras/Files.java
+Extras/Fraction.java
+Extras/FractionBig.java
+Extras/FractionLong.java
+Extras/LinkList.java
+Extras/ListNode.java
+Extras/MainClass.java
+Extras/NumHelp.java
+Extras/OldCode.java
+Extras/PairIntInt.java
+Extras/Palindromes.java
+Extras/PokerHand.java
+Extras/PrimeTestMillerRabin.java
+Extras/Sorter.java
+Extras/StrPair.java
+Extras/WordPosPair.java
+PrimeServer/src/Extras/ByteOperations.java
+PrimeServer/src/Extras/NumHelp.java
+PrimeServer/src/Extras/testByteOperations.java
+PrimeServer/src/PrimeNumbers/PrimeClient.java
+PrimeServer/src/PrimeNumbers/PrimeServer.java
+PrimeServer/src/PrimeNumbers/PrimeTestMillerRabin.java
+PrimeServer/src/PrimeNumbers/Primes.java
+PrimeServer/src/PrimeNumbers/testPrimeClient.java
+PrimeServer/src/PrimeNumbers/testPrimeServer.java
+PrimeServer/src/PrimeNumbers/testPrimes.java
+PrimeServer/src/Problem/Problem75.java
+ProjectEuler/src/extras/AVLNode.java
+ProjectEuler/src/extras/AVLTree.java
+ProjectEuler/src/extras/BTNode.java
+ProjectEuler/src/extras/BinaryTree.java
+ProjectEuler/src/extras/Bitmap.java
+ProjectEuler/src/extras/ByteOperations.java
+ProjectEuler/src/extras/Figurate.java
+ProjectEuler/src/extras/Files.java
+ProjectEuler/src/extras/Fraction.java
+ProjectEuler/src/extras/FractionBig.java
+ProjectEuler/src/extras/FractionLong.java
+ProjectEuler/src/extras/LinkList.java
+ProjectEuler/src/extras/ListNode.java
+ProjectEuler/src/extras/NumHelp.java
+ProjectEuler/src/extras/PairIntInt.java
+ProjectEuler/src/extras/Palindromes.java
+ProjectEuler/src/extras/PokerHand.java
+ProjectEuler/src/extras/Sorter.java
+ProjectEuler/src/extras/StrPair.java
+ProjectEuler/src/extras/WordPosPair.java
+ProjectEuler/src/extras/testByteOperations.java
+ProjectEuler/src/primenumber/PrimeClient.java
+ProjectEuler/src/primenumber/PrimeServer.java
+ProjectEuler/src/primenumber/PrimeTestMillerRabin.java
+ProjectEuler/src/primenumber/Primes.java
+ProjectEuler/src/primenumber/testPrimeClient.java
+ProjectEuler/src/primenumber/testPrimeServer.java
+ProjectEuler/src/primenumber/testPrimes.java
+ProjectEuler/src/problem/Problem75.java
+
+
+commit a7f71b4f235a6e679f08f7b7a7e3b5cbebab5708
+Author: Mitchell Ludwig <mitch@edgemontgeek.com>
+Date:   Thu Oct 11 21:21:46 2012 -0600
+
+    Solved Euler Problem 75
+
+ProjectEuler/src/extras/PythagoreanTriples.java
+ProjectEuler/src/extras/PythagoreanTriplesTest.java
+ProjectEuler/src/primenumber/Primes.java
+ProjectEuler/src/primenumber/testPrimes.java
+ProjectEuler/src/problem/Problem75.java
