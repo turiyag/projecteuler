@@ -1,0 +1,54 @@
+package problem;
+
+import java.io.IOException;
+import java.util.Collections;
+import java.util.LinkedList;
+
+import specialnumbers.IntListing;
+
+import datastructures.LinkList;
+
+import extras.Files;
+
+public class Problem82 {
+	
+	static int[][]					_iaaMin;
+	static int[][]					_iaaMatrix;
+	static int[][]					_iaaVisited;
+	static LinkedList<IntListing>	_illLower;
+	
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String sFile;
+		int iMin;
+		try {
+			sFile = Files.readFileAsString("matrix.txt");
+			LinkedList<LinkedList<String>> llsLines = Files.SplitLinesAndDelim(sFile, ',', "\r\n");
+			_iaaMatrix = Files.MakeArray(llsLines);
+			_iaaMin = new int[80][80];
+			_iaaVisited = new int[80][80];
+			_iaaMin[0][0] = _iaaMatrix[0][0];
+			_illLower = new LinkedList<IntListing>();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	private static void queueUp(int iLower, int iX, int iY) {
+		IntListing il = new IntListing(3);
+		il.add(3, iLower);
+		il.add(2, iX);
+		il.add(1, iY);
+		_illLower.add(il);
+	}
+	
+	private static IntListing getNext() {
+		Collections.sort(_illLower);
+		return _illLower.pop();
+	}
+}

@@ -1,0 +1,14 @@
+package specialnumbers;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class testNumHelp {
+	
+	@Test
+	public void test() {
+		fail("Not yet implemented");
+	}
+	
+}

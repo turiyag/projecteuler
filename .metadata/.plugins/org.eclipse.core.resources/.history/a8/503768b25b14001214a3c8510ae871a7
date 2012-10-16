@@ -1,0 +1,13 @@
+package specialnumbers;
+
+public class IntListing {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

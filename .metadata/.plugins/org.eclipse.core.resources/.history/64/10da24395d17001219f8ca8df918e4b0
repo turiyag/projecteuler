@@ -1,0 +1,28 @@
+package problem;
+
+import java.io.IOException;
+import java.util.LinkedList;
+
+import extras.Files;
+
+public class Problem81 {
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String sFile;
+		int[][] iaaMin;
+		try {
+			sFile = Files.readFileAsString("matrix.txt");
+			LinkedList<LinkedList<String>> llsLines = Files.SplitLinesAndDelim(sFile, ',', "\r\n");
+			int[][] iaaMatrix = Files.MakeArray(llsLines);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+}

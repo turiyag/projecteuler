@@ -1,0 +1,43 @@
+package problem;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.lang.Math;
+
+import specialnumbers.IntListing;
+
+public class Problem76 {
+	private static ArrayList<LinkedList<IntListing>>	_lilaSums;
+	private static int[][]								_iaaSumsUnder;
+	
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		IntListing il;
+		LinkedList<IntListing> lil;
+		_iaaSumsUnder = new int[101][101];
+		_lilaSums = new ArrayList<LinkedList<IntListing>>(101);
+		lil = new LinkedList<IntListing>();
+		il = new IntListing(100);
+		il.add(1);
+		lil.add(il);
+		_lilaSums.add(lil);
+		
+		lil = new LinkedList<IntListing>();
+		il = new IntListing(100);
+		il.add(1, 2);
+		lil.add(il);
+		il = new IntListing(100);
+		il.add(2);
+		lil.add(il);
+		_lilaSums.add(lil);
+		for (int i = 1; i < 101; i++) {
+			// lil = allSums(i);
+			// System.out.println(i + ": " + (lil.size() - 1));
+			System.out.println(i + ": " + (allSumsUnder(i, i) - 1));
+		}
+	}
+}

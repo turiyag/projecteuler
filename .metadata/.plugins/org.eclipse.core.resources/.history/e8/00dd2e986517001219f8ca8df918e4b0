@@ -1,0 +1,71 @@
+package problem;
+
+import java.io.IOException;
+import java.util.LinkedList;
+
+import extras.Files;
+
+public class Problem82 {
+	
+	static int[][]	iaaMin;
+	static int[][]	iaaMatrix;
+	static int[][]	iaaVisited;
+	
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String sFile;
+		int iMin;
+		try {
+			sFile = Files.readFileAsString("matrix.txt");
+			LinkedList<LinkedList<String>> llsLines = Files.SplitLinesAndDelim(sFile, ',', "\r\n");
+			iaaMatrix = Files.MakeArray(llsLines);
+			iaaMin = new int[80][80];
+			iaaVisited = new int[80][80];
+			for (int i = 0; i < 80; i++) {
+				iaaMin[i][0] = iaaMatrix[i][0];
+			}
+			for (int iX = 1; iX < 80; iX++) {
+				for (int iY = 0; iY < 80; iY++) {
+					iaaMin[iY][iX] = Math.min(minGoingDown(iX, iY), minGoingUp(iX, iY));
+				}
+			}
+			iMin = iaaMin[0][79];
+			for (int iY = 1; iY < 80; iY++) {
+				if (iaaMin[iY][79] < iMin) {
+					iMin = iaaMin[iY][79];
+				}
+			}
+			System.out.println("It's " + iMin);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	private static int traverseMatrix(int iX, int iY, int iLessThan, int iCurrentTotal) {
+		if (iX < 0 || iX > 79 || iY < 0 || iY > 79) {
+			return Integer.MAX_VALUE;
+		} else if (iaaMin[iX][iY] != 0) {
+			return iaaMin[iX][iY];
+		} else if (true) {
+			return iaaMin[iX][iY];
+		}
+		return 0;
+	}
+	
+	private static int lowerBound(int iX, int iY) {
+		if (iX == 0) {
+			if (iY == 0) {
+				return iaaMatrix[0][0];
+			}
+		}
+	}
+	
+	private static void clearVisited() {
+		iaaVisited = new int[80][80];
+	}
+}

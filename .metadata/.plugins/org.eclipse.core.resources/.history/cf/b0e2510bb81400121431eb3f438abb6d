@@ -1,0 +1,41 @@
+package problem;
+
+import java.util.LinkedList;
+
+import specialnumbers.IntListing;
+
+public class Problem76 {
+	
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		IntListing il1 = new IntListing(100);
+		il1.add(1);
+		System.out.println(il1);
+		il1.add(1);
+		System.out.println(il1);
+		il1.add(2);
+		System.out.println(il1);
+		il1.add(2);
+		System.out.println(il1);
+	}
+	
+	private static LinkedList<IntListing> allSums(int iNum) {
+		LinkedList<IntListing> lilRet;
+		LinkedList<IntListing> lilPrev;
+		LinkedList<IntListing> lil2Prev;
+		IntListing il;
+		if (iNum < 1)
+			return null;
+		lilRet = new LinkedList<IntListing>();
+		if (iNum == 1) {
+			il = new IntListing(1);
+			il.add(1);
+			lilRet.add(il);
+			return lilRet;
+		}
+		
+	}
+}

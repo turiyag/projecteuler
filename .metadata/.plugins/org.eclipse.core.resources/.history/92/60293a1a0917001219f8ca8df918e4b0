@@ -1,0 +1,34 @@
+package extras;
+
+import static org.junit.Assert.*;
+
+import java.util.LinkedList;
+
+import org.junit.Test;
+
+public class testFiles {
+	
+	@Test
+	public void test() {
+		LinkedList<LinkedList<String>> llsLines = new LinkedList<LinkedList<String>>();
+		LinkedList<String> lsLine = new LinkedList<String>();
+		int[][] iaaMatrix;
+		lsLine.add("1");
+		lsLine.add("2");
+		lsLine.add("3");
+		llsLines.add(lsLine);
+		lsLine = new LinkedList<String>();
+		lsLine.add("4");
+		lsLine.add("5");
+		lsLine.add("6");
+		llsLines.add(lsLine);
+		lsLine = new LinkedList<String>();
+		lsLine.add("7");
+		lsLine.add("8");
+		lsLine.add("9");
+		llsLines.add(lsLine);
+		iaaMatrix = Files.MakeArray(llsLines);
+		System.out.println(iaaMatrix);
+	}
+	
+}

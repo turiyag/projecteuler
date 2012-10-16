@@ -1,0 +1,21 @@
+package extras;
+
+import static org.junit.Assert.*;
+
+import java.math.BigInteger;
+
+import org.junit.Test;
+
+public class testBigSums {
+	
+	@Test
+	public void test() {
+		BigSums bs = new BigSums(100);
+		assertEquals(BigInteger.valueOf(1), bs.allSumsUnder(1, 1));
+		assertEquals(BigInteger.valueOf(2), bs.allSumsUnder(2, 2));
+		assertEquals(BigInteger.valueOf(3), bs.allSumsUnder(3, 3));
+		assertEquals(BigInteger.valueOf(5), bs.allSumsUnder(4, 4));
+		assertEquals(BigInteger.valueOf(7), bs.allSumsUnder(5, 5));
+	}
+	
+}

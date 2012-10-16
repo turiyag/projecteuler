@@ -1,0 +1,18 @@
+package problem;
+
+import extras.Sums;
+
+public class Problem78 {
+	
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Sums s = new Sums(500);
+		for (int i = 1; i < 500; i++) {
+			if (s.allSumsUnder(i, i) % 1 == 0) {
+				System.out.println(i + ": " + s.allSumsUnder(i, i));
+			}
+		}
+	}
+}

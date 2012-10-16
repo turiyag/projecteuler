@@ -1,0 +1,24 @@
+package problem;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.lang.Math;
+
+import extras.Sums;
+
+import specialnumbers.IntListing;
+
+public class Problem76 {
+	private static ArrayList<LinkedList<IntListing>>	_lilaSums;
+	private static int[][]								_iaaSumsUnder;
+	
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Sums s = new Sums(100);
+		System.out.println("It's: " + s.allSumsUnder(100, 100));
+	}
+}

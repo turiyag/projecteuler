@@ -1,0 +1,30 @@
+package problem;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.lang.Math;
+
+import extras.Sums;
+
+import primenumber.Primes;
+
+import specialnumbers.IntListing;
+
+public class Problem77 {
+	private static ArrayList<LinkedList<IntListing>>	_lilaSums;
+	private static int[][]								_iaaSumsUnder;
+	private static int[][]								_iaaPrimeSumsUnder;
+	private static Primes								_p;
+	
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Sums s = new Sums(100);
+		for (int i = 1; s.allPrimeSumsUnder(i, i) > 5000; i++) {
+
+		}
+	}
+}

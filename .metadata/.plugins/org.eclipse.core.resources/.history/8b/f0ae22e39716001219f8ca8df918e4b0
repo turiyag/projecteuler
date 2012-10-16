@@ -1,0 +1,64 @@
+package extras;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.lang.Math;
+import java.math.BigInteger;
+
+import primenumber.Primes;
+
+import specialnumbers.IntListing;
+
+public class BigSums {
+	private ArrayList<LinkedList<IntListing>>	_lilaSums;
+	private BigInteger[][]						_baaSumsUnder;
+	private BigInteger[][]						_baaPrimeSumsUnder;
+	private Primes								_p;
+	private int									_iMax;
+	
+	public BigSums(int iMax) {
+		super();
+		_iMax = iMax + 1;
+		_p = new Primes(_iMax);
+		_baaSumsUnder = new BigInteger[_iMax][_iMax];
+		_baaPrimeSumsUnder = new BigInteger[_iMax][_iMax];
+		_lilaSums = new ArrayList<LinkedList<IntListing>>(_iMax);
+		LinkedList<IntListing> lil = new LinkedList<IntListing>();
+		
+		IntListing il = new IntListing(_iMax);
+		il.add(1);
+		lil.add(il);
+		_lilaSums.add(lil);
+		
+		lil = new LinkedList<IntListing>();
+		il = new IntListing(_iMax);
+		il.add(1, 2);
+		lil.add(il);
+		il = new IntListing(_iMax);
+		il.add(2);
+		lil.add(il);
+		_lilaSums.add(lil);
+	}
+	
+	public BigInteger allSumsUnder(int iNum, int iUnder) {
+		BigInteger iTotalCount;
+		iUnder = Math.min(iNum, iUnder);
+		if (iNum == 1 || iUnder == 1) {
+			return BigInteger.ONE;
+		} else if (iNum == 0) {
+			return BigInteger.ONE;
+		} else if (_baaSumsUnder[iNum][iUnder] != null) {
+			return _baaSumsUnder[iNum][iUnder];
+		} else {
+			iTotalCount = 0;
+			for (int i = iUnder; i > 0; i--) {
+				iTotalCount += allSumsUnder(iNum - i, i);
+			}
+			_iaaSumsUnder[iNum][iUnder] = iTotalCount;
+			return iTotalCount;
+		}
+	}
+	
+}
