@@ -6,8 +6,6 @@ import java.util.LinkedList;
 
 import specialnumbers.IntListing;
 
-import datastructures.LinkList;
-
 import extras.Files;
 
 public class Problem82 {

@@ -2,22 +2,20 @@ package extras;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.lang.Math;
 import java.math.BigInteger;
 
 import specialnumbers.IntListing;
 
 public class BigSums {
 	private ArrayList<LinkedList<IntListing>>	_lilaSums;
-	private BigInteger[][]						_baaSumsUnder;
 	private int									_iMax;
-	private BigInteger[]						_baaSumsUnder2;
+	private BigInteger[]						_baaSumsUnder;
 	
 	public BigSums(int iMax) {
 		super();
 		_iMax = iMax + 1;
 		// _baaSumsUnder = new BigInteger[_iMax][_iMax];
-		_baaSumsUnder2 = new BigInteger[_iMax];
+		_baaSumsUnder = new BigInteger[_iMax];
 		_lilaSums = new ArrayList<LinkedList<IntListing>>(_iMax);
 		LinkedList<IntListing> lil = new LinkedList<IntListing>();
 		
@@ -46,8 +44,8 @@ public class BigSums {
 			return BigInteger.ZERO;
 		} else {
 			if (iNum < _iMax) {
-				if (_baaSumsUnder2[(int) iNum] != null) {
-					return _baaSumsUnder2[(int) iNum];
+				if (_baaSumsUnder[(int) iNum] != null) {
+					return _baaSumsUnder[(int) iNum];
 				} else {
 					bTotalCount = BigInteger.ZERO;
 					for (long i = 1; ((3 * i - 1) * i) / 2 <= iNum; i++) {
@@ -59,7 +57,7 @@ public class BigSums {
 							bTotalCount = bTotalCount.add(allSumsUnder(iNum - ((3 * i + 1) * i) / 2));
 						}
 					}
-					_baaSumsUnder2[(int) iNum] = bTotalCount;
+					_baaSumsUnder[(int) iNum] = bTotalCount;
 					return bTotalCount;
 				}
 			} else {

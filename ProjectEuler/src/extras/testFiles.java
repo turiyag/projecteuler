@@ -2,7 +2,6 @@ package extras;
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
 import java.util.LinkedList;
 
 import org.junit.Test;

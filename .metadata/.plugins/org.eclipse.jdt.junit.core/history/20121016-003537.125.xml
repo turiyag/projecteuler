@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="testFiles" project="ProjectEuler" tests="1" started="1" failures="0" errors="0" ignored="0">
-  <testsuite name="extras.testFiles" time="4.686">
-    <testcase name="test" classname="extras.testFiles" time="4.686"/>
-  </testsuite>
-</testrun>
