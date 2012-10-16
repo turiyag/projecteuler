@@ -5,7 +5,8 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import extras.ByteOperations;
+import specialnumbers.ByteOperations;
+
 
 public class PrimeClient extends Primes {
 	static final public int			PACKET_SIZE		= 8192;

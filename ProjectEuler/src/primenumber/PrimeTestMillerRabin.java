@@ -2,7 +2,8 @@ package primenumber;
 
 import java.math.BigInteger;
 
-import extras.NumHelp;
+import specialnumbers.NumHelp;
+
 
 public class PrimeTestMillerRabin {
 	private static final BigInteger	biMRLimit1	= new BigInteger("1373653");

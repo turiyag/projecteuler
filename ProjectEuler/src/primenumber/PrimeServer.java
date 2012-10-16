@@ -6,7 +6,8 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 
-import extras.ByteOperations;
+import specialnumbers.ByteOperations;
+
 
 public class PrimeServer extends Primes {
 	static final public int	PACKET_SIZE		= 8192;

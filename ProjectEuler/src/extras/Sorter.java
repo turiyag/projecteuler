@@ -1,5 +1,7 @@
 package extras;
 
+import datastructures.StrPair;
+
 /**
  * Mitchell Ludwig #10015370
  */

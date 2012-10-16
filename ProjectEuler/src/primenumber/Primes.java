@@ -4,7 +4,8 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
-import extras.ByteOperations;
+
+import specialnumbers.ByteOperations;
 
 public class Primes {
 	protected int		_iaPrimes[];
@@ -32,8 +33,7 @@ public class Primes {
 	}
 	
 	/**
-	 * Generates the initial primes. This method is deprecated in favor of the
-	 * Sieve Of Atkin.
+	 * Generates the initial primes. This method is deprecated in favor of the Sieve Of Atkin.
 	 * 
 	 * @param iCount
 	 *            The number of primes to generate
@@ -73,9 +73,7 @@ public class Primes {
 	}
 	
 	/**
-	 * Generates the initial primes via a quick algorithm, which is orders of
-	 * magnitude better than the Sieve of Erasthenes. This refactoring was done
-	 * to improve the speed of the program.
+	 * Generates the initial primes via a quick algorithm, which is orders of magnitude better than the Sieve of Erasthenes. This refactoring was done to improve the speed of the program.
 	 * 
 	 * @param iLimit
 	 *            The upper limit of the range to search for primes.
@@ -232,6 +230,26 @@ public class Primes {
 			return findPrime(iPrime, iMid + 1, iEnd);
 		} else {
 			return findPrime(iPrime, iStart, iMid);
+		}
+	}
+	
+	public int findClosestPrime(final int iPrime) {
+		return findClosestPrime(iPrime, 0, getCount());
+	}
+	
+	public int findClosestPrime(final int iPrime, final int iStart, final int iEnd) {
+		final int iMid = (iEnd - iStart) / 2 + iStart;
+		if (iMid >= getCount()) {
+			return 0;
+		}
+		if (_iaPrimes[iMid] == iPrime) {
+			return iMid;
+		} else if (iStart == iEnd) {
+			return iStart;
+		} else if (_iaPrimes[iMid] < iPrime) {
+			return findClosestPrime(iPrime, iMid + 1, iEnd);
+		} else {
+			return findClosestPrime(iPrime, iStart, iMid);
 		}
 	}
 	

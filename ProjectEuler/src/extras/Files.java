@@ -7,6 +7,10 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Iterator;
+import java.util.LinkedList;
+
+import datastructures.LinkList;
 
 public class Files {
 	public Files() {
@@ -29,6 +33,19 @@ public class Files {
 			}
 		}
 		return b;
+	}
+	
+	public static String readFileAsString(String filePath) throws IOException {
+		StringBuffer fileData = new StringBuffer();
+		BufferedReader reader = new BufferedReader(new FileReader(filePath));
+		char[] buf = new char[1024];
+		int numRead = 0;
+		while ((numRead = reader.read(buf)) != -1) {
+			String readData = String.valueOf(buf, 0, numRead);
+			fileData.append(readData);
+		}
+		reader.close();
+		return fileData.toString();
 	}
 	
 	// Saves an array of bytes into a file
@@ -119,5 +136,50 @@ public class Files {
 		llSplit.add(sSrc.substring(iLast));
 		
 		return llSplit;
+	}
+	
+	public static LinkedList<LinkedList<String>> SplitLinesAndDelim(final String sSrc, final char cElemDelim, final String sLineDelim) {
+		LinkedList<LinkedList<String>> llsLines = new LinkedList<LinkedList<String>>();
+		LinkedList<String> lsLine = new LinkedList<String>();
+		
+		int iLast = 0;
+		int i = 0;
+		for (; i < sSrc.length() - sLineDelim.length(); i++) {
+			if (sSrc.charAt(i) == cElemDelim) {
+				lsLine.add(sSrc.substring(iLast, i));
+				iLast = i + 1;
+			} else if (sSrc.substring(i, i + sLineDelim.length()).equals(sLineDelim)) {
+				lsLine.add(sSrc.substring(iLast, i));
+				iLast = i + sLineDelim.length();
+				llsLines.add(lsLine);
+				lsLine = new LinkedList<String>();
+			}
+		}
+		lsLine.add(sSrc.substring(iLast));
+		llsLines.add(lsLine);
+		return llsLines;
+	}
+	
+	public static int[][] MakeArray(final LinkedList<LinkedList<String>> llsLines) {
+		int iaaLines[][];
+		int iLineIndex;
+		int iElemIndex;
+		LinkedList<String> lsLine;
+		Iterator<LinkedList<String>> itLines;
+		Iterator<String> itLine;
+		iaaLines = new int[llsLines.size()][llsLines.element().size()];
+		itLines = llsLines.iterator();
+		iLineIndex = 0;
+		while (itLines.hasNext()) {
+			lsLine = itLines.next();
+			itLine = lsLine.iterator();
+			iElemIndex = 0;
+			while (itLine.hasNext()) {
+				iaaLines[iLineIndex][iElemIndex] = Integer.valueOf(itLine.next());
+				iElemIndex++;
+			}
+			iLineIndex++;
+		}
+		return iaaLines;
 	}
 }

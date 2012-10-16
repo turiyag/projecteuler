@@ -1,6 +1,6 @@
 package problem;
 
-import extras.PythagoreanTriples;
+import specialnumbers.PythagoreanTriples;
 
 public class Problem75 {
 	

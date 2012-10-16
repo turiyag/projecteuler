@@ -129,4 +129,17 @@ public class testPrimes {
 			
 		}
 	}
+	
+	@Test
+	public void testClosestPrime() {
+		assertEquals(0, p.findClosestPrime(2));
+		assertEquals(1, p.findClosestPrime(3));
+		assertEquals(2, p.findClosestPrime(5));
+		assertEquals(3, p.findClosestPrime(7));
+		assertEquals(4, p.findClosestPrime(10));
+		assertEquals(4, p.findClosestPrime(11));
+		assertTrue(4 == p.findClosestPrime(12) || 5 == p.findClosestPrime(12));
+		assertEquals(5, p.findClosestPrime(13));
+	}
+	
 }
