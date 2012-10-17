@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import org.junit.Test;
 
 
-public class testSums {
+public class SumsTest {
 	
 	@Test
 	public void test() {

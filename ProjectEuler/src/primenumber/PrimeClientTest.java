@@ -8,7 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class testPrimeClient {
+public class PrimeClientTest {
 	PrimeClient	_pcHost;
 	PrimeClient	_pcIALimit;
 	PrimeClient	_pcDefault;

@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
-public class testNumHelp {
+public class NumHelpTest {
 	
 	private static final int	SCALE	= 120;
 	

@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class testPrimes {
+public class PrimesTest {
 	Primes	p;
 	Primes	p2;
 	Primes	pLarge;

@@ -1,4 +1,4 @@
-package extras;
+package games;
 
 public class PokerHand {
 	public static final int	SUIT_SPADES		= 3;

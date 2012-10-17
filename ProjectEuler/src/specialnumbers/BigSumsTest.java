@@ -6,7 +6,7 @@ import java.math.BigInteger;
 
 import org.junit.Test;
 
-public class testBigSums {
+public class BigSumsTest {
 	
 	@Test
 	public void testAllSumsUnder() {
