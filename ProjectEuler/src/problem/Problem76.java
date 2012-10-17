@@ -1,6 +1,6 @@
 package problem;
 
-import extras.Sums;
+import specialnumbers.Sums;
 
 public class Problem76 {
 	

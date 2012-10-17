@@ -2,7 +2,8 @@ package problem;
 
 import java.math.BigInteger;
 
-import extras.BigSums;
+import specialnumbers.BigSums;
+
 
 public class Problem78 {
 	

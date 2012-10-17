@@ -3,8 +3,8 @@ package problem;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import extras.BigSums;
 
+import specialnumbers.BigSums;
 import specialnumbers.NumHelp;
 
 public class Problem79 {
