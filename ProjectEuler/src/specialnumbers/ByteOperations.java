@@ -1,6 +1,7 @@
 package specialnumbers;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -104,6 +105,19 @@ public class ByteOperations {
 			ret[i] = iterator.next().intValue();
 		}
 		return ret;
+	}
+	
+	/**
+	 * @param intList
+	 *            An int array
+	 * @return Returns a list of integers
+	 */
+	public static LinkedList<Integer> intArrayToListInt(final int[] ia) {
+		LinkedList<Integer> intList = new LinkedList<Integer>();
+		for (int i : ia) {
+			intList.add(i);
+		}
+		return intList;
 	}
 	
 }

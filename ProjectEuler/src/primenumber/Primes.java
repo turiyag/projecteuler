@@ -8,10 +8,12 @@ import java.util.LinkedList;
 import specialnumbers.ByteOperations;
 
 public class Primes {
-	protected int		_iaPrimes[];
-	protected int		_iaTotients[];
+	protected int					_iaPrimes[];
+	protected int					_iaTotients[];
+	protected LinkedList<Integer>[]	_ilaFactors;
+	protected int[][]				_iaaFactors;
 	
-	static final int	DEFAULT_LIMIT	= 1000000;
+	static final int				DEFAULT_LIMIT	= 1000000;
 	
 	/**
 	 * Creates a new object and generates the initial primes
@@ -21,6 +23,7 @@ public class Primes {
 	 */
 	public Primes(final int iLimit) {
 		sieveOfAtkin(iLimit);
+		_iaaFactors = new int[iLimit][1];
 	}
 	
 	/**
@@ -254,19 +257,28 @@ public class Primes {
 	}
 	
 	public int[] factor(final int iNum) {
-		return ByteOperations.listIntToIntArray(factorLinkList(iNum));
+		if (_iaaFactors[iNum][0] == 0) {
+			return ByteOperations.listIntToIntArray(factorLinkList(iNum));
+		} else {
+			return _iaaFactors[iNum];
+		}
 	}
 	
 	public LinkedList<Integer> factorLinkList(int iNum) {
-		final LinkedList<Integer> liDivs = new LinkedList<Integer>();
-		for (int i = 0; _iaPrimes[i] <= iNum; i++) {
-			if (iNum % _iaPrimes[i] == 0) {
-				iNum /= _iaPrimes[i];
-				liDivs.add(_iaPrimes[i]);
-				i--;
+		if (_iaaFactors[iNum][0] == 0) {
+			final LinkedList<Integer> liDivs = new LinkedList<Integer>();
+			for (int i = 0; _iaPrimes[i] <= iNum; i++) {
+				if (iNum % _iaPrimes[i] == 0) {
+					iNum /= _iaPrimes[i];
+					liDivs.add(_iaPrimes[i]);
+					i--;
+				}
 			}
+			_iaaFactors[iNum] = ByteOperations.listIntToIntArray(liDivs);
+			return liDivs;
+		} else {
+			return ByteOperations.intArrayToListInt(_iaaFactors[iNum]);
 		}
-		return liDivs;
 	}
 	
 	public boolean areCoprime(final int a, final int b) throws Exception {

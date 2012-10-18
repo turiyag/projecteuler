@@ -4,17 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.lang.Math;
 
 import primenumber.Primes;
 
-
 public class Sums {
-	private ArrayList<LinkedList<IntListing>>	_lilaSums;
-	private long[][]							_iaaSumsUnder;
-	private long[][]							_iaaPrimeSumsUnder;
-	private Primes								_p;
-	private int									_iMax;
+	private final ArrayList<LinkedList<IntListing>>	_lilaSums;
+	private final long[][]							_iaaSumsUnder;
+	private final long[][]							_iaaPrimeSumsUnder;
+	private final Primes							_p;
+	private final int								_iMax;
 	
 	public Sums(int iMax) {
 		super();
@@ -128,11 +126,19 @@ public class Sums {
 		}
 	}
 	
-	public static int[] sumToEachN(int n){
-		int[] iaRet = new int[n+1];
+	public static int[] sumToEachN(int n) {
+		int[] iaRet = new int[n + 1];
 		for (int i = 0; i <= n; i++) {
-			iaRet[i] = (i*(i+1))/2;
+			iaRet[i] = i * (i + 1) / 2;
 		}
 		return iaRet;
+	}
+	
+	public static int sumArray(int[] ia) {
+		int iSum = 0;
+		for (int i : ia) {
+			iSum += i;
+		}
+		return iSum;
 	}
 }
