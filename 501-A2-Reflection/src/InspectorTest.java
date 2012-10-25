@@ -104,4 +104,13 @@ public class InspectorTest {
 		i.printObjectOrArray(iaaWrapper);
 		System.out.println();
 	}
+	
+	@Test
+	public void testAAInspection() {
+		Inspector i = new Inspector();
+		System.out.println("====== Verify that this looks OK =====");
+		i.inspect(new Primes(100), true);
+		
+		System.out.println("======================================");
+	}
 }
