@@ -148,33 +148,12 @@ public class Inspector {
 	}
 	
 	public void printObjectOrArray(Object oInput) {
-		int iLength;
-		Object[] oaInput;
 		if (oInput == null) {
 			System.out.print("null");
 			return;
 		}
 		if (oInput.getClass().isArray()) {
-			if (oInput instanceof Object[]) {
-				System.out.print("[");
-				oaInput = (Object[]) oInput;
-				for (int i = 0; i < oaInput.length; i++) {
-					printObjectOrArray(oaInput[i]);
-					if (i != oaInput.length - 1) {
-						System.out.print(", ");
-					}
-				}
-				System.out.print("]");
-				return;
-			} else {
-				iLength = Array.getLength(oInput);
-				Object[] objArr = new Object[iLength];
-				for (int i = 0; i < iLength; i++) {
-					objArr[i] = Array.get(oInput, i);
-				}
-				System.out.print(Arrays.deepToString(objArr));
-				return;
-			}
+			printArray(oInput);
 		} else {
 			if (_bRecursive) {
 				if (isPrimitiveWrapper(oInput.getClass())) {
@@ -191,6 +170,31 @@ public class Inspector {
 				System.out.print(oInput);
 				return;
 			}
+		}
+	}
+	
+	public void printArray(Object oInput) {
+		int iLength;
+		Object[] oaInput;
+		if (oInput instanceof Object[]) {
+			System.out.print("[");
+			oaInput = (Object[]) oInput;
+			for (int i = 0; i < oaInput.length; i++) {
+				printObjectOrArray(oaInput[i]);
+				if (i != oaInput.length - 1) {
+					System.out.print(", ");
+				}
+			}
+			System.out.print("]");
+			return;
+		} else {
+			iLength = Array.getLength(oInput);
+			Object[] objArr = new Object[iLength];
+			for (int i = 0; i < iLength; i++) {
+				objArr[i] = Array.get(oInput, i);
+			}
+			System.out.print(Arrays.deepToString(objArr));
+			return;
 		}
 	}
 	

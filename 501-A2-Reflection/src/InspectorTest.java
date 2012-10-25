@@ -86,4 +86,22 @@ public class InspectorTest {
 		assertTrue(i.isPrimitiveWrapper(iWrapper.getClass()));
 		assertFalse(i.isPrimitiveWrapper(p.getClass()));
 	}
+	
+	@Test
+	public void testPrintObject() {
+		Inspector i = new Inspector();
+		Primes p = new Primes(1000);
+		Integer iWrapper = new Integer(5);
+		Integer[] iaWrapper = new Integer[] { 5, 4, 3, 2, 1 };
+		Integer[][] iaaWrapper = new Integer[][] { { 5, 4, 3, 2, 1 }, { 5, 4, 3, 2, 1 } };
+		System.out.println("Verify that it prints 5");
+		i.printObjectOrArray(iWrapper);
+		System.out.println();
+		System.out.println("Verify that it prints [5, 4, 3, 2, 1]");
+		i.printObjectOrArray(iaWrapper);
+		System.out.println();
+		System.out.println("Verify that it prints [[5, 4, 3, 2, 1], [5, 4, 3, 2, 1]]");
+		i.printObjectOrArray(iaaWrapper);
+		System.out.println();
+	}
 }
