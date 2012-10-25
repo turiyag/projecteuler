@@ -100,49 +100,32 @@ public class Inspector {
 	}
 	
 	public void printFields() {
-		Object oFieldValue;
 		forTheRecordLn("Fields:");
 		tabIn();
-		for (Field f : _cInput.getDeclaredFields()) {
-			try {
-				f.setAccessible(true);
-				oFieldValue = f.get(_oInput);
-				if (oFieldValue == null) {
-					forTheRecordLn(Modifier.toString(f.getModifiers()) + " " + getNiceName(f.getType()) + " " + f.getName() + " = null");
-				} else {
-					forTheRecord(Modifier.toString(f.getModifiers()) + " " + getNiceName(f.getType()) + " " + f.getName() + " = ");
-					printObjectOrArray(oFieldValue);
-					System.out.println();
-				}
-			} catch (IllegalArgumentException e) {
-				forTheRecordLn(Modifier.toString(f.getModifiers()) + " " + getNiceName(f.getType()) + " " + f.getName() + " = *IllegalArgument*");
-			} catch (IllegalAccessException e) {
-				forTheRecordLn(Modifier.toString(f.getModifiers()) + " " + getNiceName(f.getType()) + " " + f.getName() + " = *IllegalAccess*");
-			}
-		}
+		printFields(_cInput, "");
 		for (Class<?> c : _clInheritanceHeirarchy) {
-			printFields(c);
+			printFields(c, "[From " + getNiceName(c) + "] ");
 		}
 		tabOut();
 	}
 	
-	public void printFields(Class<?> cObject) {
+	public void printFields(Class<?> cObject, String sPrepend) {
 		Object oFieldValue;
 		for (Field f : cObject.getDeclaredFields()) {
 			try {
 				f.setAccessible(true);
 				oFieldValue = f.get(_oInput);
 				if (oFieldValue == null) {
-					forTheRecordLn("[From " + getNiceName(cObject) + "] " + Modifier.toString(f.getModifiers()) + " " + getNiceName(f.getType()) + " " + f.getName() + " = null");
+					forTheRecordLn(sPrepend + Modifier.toString(f.getModifiers()) + " " + getNiceName(f.getType()) + " " + f.getName() + " = null");
 				} else {
-					forTheRecord("[From " + getNiceName(cObject) + "] " + Modifier.toString(f.getModifiers()) + " " + getNiceName(f.getType()) + " " + f.getName() + " = ");
+					forTheRecord(sPrepend + Modifier.toString(f.getModifiers()) + " " + getNiceName(f.getType()) + " " + f.getName() + " = ");
 					printObjectOrArray(oFieldValue);
 					System.out.println();
 				}
 			} catch (IllegalArgumentException e) {
-				forTheRecordLn("[From " + getNiceName(cObject) + "] " + Modifier.toString(f.getModifiers()) + " " + getNiceName(f.getType()) + " " + f.getName() + " = *IllegalArgument*");
+				forTheRecordLn(sPrepend + Modifier.toString(f.getModifiers()) + " " + getNiceName(f.getType()) + " " + f.getName() + " = *IllegalArgument*");
 			} catch (IllegalAccessException e) {
-				forTheRecordLn("[From " + getNiceName(cObject) + "] " + Modifier.toString(f.getModifiers()) + " " + getNiceName(f.getType()) + " " + f.getName() + " = *IllegalAccess*");
+				forTheRecordLn(sPrepend + Modifier.toString(f.getModifiers()) + " " + getNiceName(f.getType()) + " " + f.getName() + " = *IllegalAccess*");
 			}
 		}
 	}
