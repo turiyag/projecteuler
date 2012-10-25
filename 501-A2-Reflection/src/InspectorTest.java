@@ -1,4 +1,7 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -44,8 +47,12 @@ public class InspectorTest {
 		assertEquals(sExpect + "[][]", i.getNiceName(paa.getClass()));
 		sExpect = "Interface java.util.Set";
 		assertEquals(sExpect, i.getNiceName(java.util.Set.class));
-		sExpect = "";
-		assertEquals(sExpect, i.getNiceName(null));
+		try {
+			i.getNiceName(null);
+			fail("This was supposed to die");
+		} catch (Exception e) {
+			// Intended behavior
+		}
 	}
 	
 	@Test
@@ -62,5 +69,21 @@ public class InspectorTest {
 		Primes p = new Primes(1000);
 		assertEquals("throws java.lang.Exception", i.methodExceptions(p.getClass().getMethod("areCoprime", int.class, int.class)));
 		assertEquals("", i.methodExceptions(p.getClass().getMethod("isPrime", int.class)));
+	}
+	
+	@Test
+	public void testMethodParameters() throws NoSuchMethodException, SecurityException {
+		Inspector i = new Inspector();
+		Primes p = new Primes(1000);
+		assertEquals("int, int", i.methodParameters(p.getClass().getMethod("areCoprime", int.class, int.class)));
+	}
+	
+	@Test
+	public void testIsPrimitiveWrapper() {
+		Inspector i = new Inspector();
+		Primes p = new Primes(1000);
+		Integer iWrapper = new Integer(5);
+		assertTrue(i.isPrimitiveWrapper(iWrapper.getClass()));
+		assertFalse(i.isPrimitiveWrapper(p.getClass()));
 	}
 }

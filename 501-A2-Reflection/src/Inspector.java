@@ -111,7 +111,7 @@ public class Inspector {
 					forTheRecordLn(Modifier.toString(f.getModifiers()) + " " + getNiceName(f.getType()) + " " + f.getName() + " = null");
 				} else {
 					forTheRecord(Modifier.toString(f.getModifiers()) + " " + getNiceName(f.getType()) + " " + f.getName() + " = ");
-					possibleArrayToString(oFieldValue);
+					printObjectOrArray(oFieldValue);
 					System.out.println();
 				}
 			} catch (IllegalArgumentException e) {
@@ -136,7 +136,7 @@ public class Inspector {
 					forTheRecordLn("[From " + getNiceName(cObject) + "] " + Modifier.toString(f.getModifiers()) + " " + getNiceName(f.getType()) + " " + f.getName() + " = null");
 				} else {
 					forTheRecord("[From " + getNiceName(cObject) + "] " + Modifier.toString(f.getModifiers()) + " " + getNiceName(f.getType()) + " " + f.getName() + " = ");
-					possibleArrayToString(oFieldValue);
+					printObjectOrArray(oFieldValue);
 					System.out.println();
 				}
 			} catch (IllegalArgumentException e) {
@@ -147,10 +147,8 @@ public class Inspector {
 		}
 	}
 	
-	public void possibleArrayToString(Object oInput) {
+	public void printObjectOrArray(Object oInput) {
 		int iLength;
-		StringBuffer sb = new StringBuffer();
-		String sReturn;
 		Object[] oaInput;
 		if (oInput == null) {
 			System.out.print("null");
@@ -161,7 +159,7 @@ public class Inspector {
 				System.out.print("[");
 				oaInput = (Object[]) oInput;
 				for (int i = 0; i < oaInput.length; i++) {
-					possibleArrayToString(oaInput[i]);
+					printObjectOrArray(oaInput[i]);
 					if (i != oaInput.length - 1) {
 						System.out.print(", ");
 					}
