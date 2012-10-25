@@ -7,11 +7,11 @@ import java.util.Arrays;
 import java.util.LinkedHashSet;
 
 public class Inspector {
-	private int						_iTabLevel	= 0;
-	private Object					_oInput;
-	private Class<?>				_cInput;
-	private LinkedHashSet<Class<?>>	_clInheritanceHeirarchy;
-	private boolean					_bRecursive;
+	public int						_iTabLevel	= 0;
+	public Object					_oInput;
+	public Class<?>					_cInput;
+	public LinkedHashSet<Class<?>>	_clInheritanceHeirarchy;
+	public boolean					_bRecursive;
 	
 	public void inspect(Object obj, boolean recursive) {
 		if (obj == null) {
@@ -34,7 +34,7 @@ public class Inspector {
 		tabOut();
 	}
 	
-	private LinkedHashSet<Class<?>> getInheritanceHeirarchy() {
+	public LinkedHashSet<Class<?>> getInheritanceHeirarchy() {
 		LinkedHashSet<Class<?>> clCHL = new LinkedHashSet<Class<?>>();
 		if (_cInput != null) {
 			clCHL.addAll(superInterfaceHeirarchyList(_cInput));
@@ -48,7 +48,7 @@ public class Inspector {
 		return clCHL;
 	}
 	
-	private LinkedHashSet<Class<?>> superInterfaceHeirarchyList(Class<?> c) {
+	public LinkedHashSet<Class<?>> superInterfaceHeirarchyList(Class<?> c) {
 		LinkedHashSet<Class<?>> clIHL = new LinkedHashSet<Class<?>>();
 		for (Class<?> cInterface : c.getInterfaces()) {
 			clIHL.add(cInterface);
@@ -57,7 +57,7 @@ public class Inspector {
 		return clIHL;
 	}
 	
-	private void printInterfaces() {
+	public void printInterfaces() {
 		forTheRecordLn("Interfaces:");
 		tabIn();
 		for (Class<?> cInterface : _cInput.getInterfaces()) {
@@ -71,7 +71,7 @@ public class Inspector {
 		tabOut();
 	}
 	
-	private void printConstructors() {
+	public void printConstructors() {
 		forTheRecordLn("Constructors:");
 		tabIn();
 		for (Constructor<?> cConstr : _cInput.getConstructors()) {
@@ -85,7 +85,7 @@ public class Inspector {
 		tabOut();
 	}
 	
-	private void printMethods() {
+	public void printMethods() {
 		forTheRecordLn("Methods:");
 		tabIn();
 		for (Method m : _cInput.getDeclaredMethods()) {
@@ -99,7 +99,7 @@ public class Inspector {
 		tabOut();
 	}
 	
-	private void printFields() {
+	public void printFields() {
 		Object oFieldValue;
 		forTheRecordLn("Fields:");
 		tabIn();
@@ -126,7 +126,7 @@ public class Inspector {
 		tabOut();
 	}
 	
-	private void printFields(Class<?> cObject) {
+	public void printFields(Class<?> cObject) {
 		Object oFieldValue;
 		for (Field f : cObject.getDeclaredFields()) {
 			try {
@@ -136,7 +136,7 @@ public class Inspector {
 					forTheRecordLn("[From " + getNiceName(cObject) + "] " + Modifier.toString(f.getModifiers()) + " " + getNiceName(f.getType()) + " " + f.getName() + " = null");
 				} else {
 					forTheRecord("[From " + getNiceName(cObject) + "] " + Modifier.toString(f.getModifiers()) + " " + getNiceName(f.getType()) + " " + f.getName() + " = ");
-					possibleArrayToString(oFieldValue, f.getType().isPrimitive());
+					possibleArrayToString(oFieldValue);
 					System.out.println();
 				}
 			} catch (IllegalArgumentException e) {
@@ -147,12 +147,13 @@ public class Inspector {
 		}
 	}
 	
-	private void possibleArrayToString(Object oInput, boolean bPrimitive) {
+	public void possibleArrayToString(Object oInput) {
 		int iLength;
 		StringBuffer sb = new StringBuffer();
 		String sReturn;
 		Object[] oaInput;
 		if (oInput == null) {
+			System.out.print("null");
 			return;
 		}
 		if (oInput.getClass().isArray()) {
@@ -178,11 +179,13 @@ public class Inspector {
 			}
 		} else {
 			if (_bRecursive) {
-				if (oInput.getClass().()) {
+				if (isPrimitiveWrapper(oInput.getClass())) {
 					System.out.print(oInput);
 					return;
 				} else {
 					Inspector i = new Inspector();
+					System.out.println();
+					i._iTabLevel = this._iTabLevel + 1;
 					i.inspect(oInput, _bRecursive);
 					return;
 				}
@@ -193,7 +196,25 @@ public class Inspector {
 		}
 	}
 	
-	private String getNiceName(Class<?> c) {
+	public boolean isPrimitiveWrapper(Class<?> c) {
+		String sName = c.getName();
+		
+		switch (sName) {
+			case "java.lang.Byte":
+			case "java.lang.Short":
+			case "java.lang.Integer":
+			case "java.lang.Long":
+			case "java.lang.Float":
+			case "java.lang.Double":
+			case "java.lang.Character":
+			case "java.lang.Boolean":
+				return true;
+			default:
+		}
+		return false;
+	}
+	
+	public String getNiceName(Class<?> c) {
 		if (c.isArray()) {
 			return getNiceName(c.getComponentType()) + "[]";
 		} else {
@@ -205,7 +226,7 @@ public class Inspector {
 		}
 	}
 	
-	private String constructorParameters(Constructor<?> c) {
+	public String constructorParameters(Constructor<?> c) {
 		StringBuffer sb = new StringBuffer();
 		String sResult;
 		for (Class<?> cParam : c.getParameterTypes()) {
@@ -219,7 +240,7 @@ public class Inspector {
 		}
 	}
 	
-	private String methodExceptions(Method m) {
+	public String methodExceptions(Method m) {
 		StringBuffer sb = new StringBuffer();
 		String sResult;
 		for (Class<?> cException : m.getExceptionTypes()) {
@@ -233,7 +254,7 @@ public class Inspector {
 		}
 	}
 	
-	private String methodParameters(Method m) {
+	public String methodParameters(Method m) {
 		StringBuffer sb = new StringBuffer();
 		String sResult;
 		for (Class<?> cParam : m.getParameterTypes()) {
