@@ -1,6 +1,5 @@
 package extras;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 
 import specialnumbers.ByteOperations;

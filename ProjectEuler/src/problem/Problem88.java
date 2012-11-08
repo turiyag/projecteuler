@@ -23,12 +23,12 @@ public class Problem88 {
 	}
 	
 	private static void addFactors(int[] iaFactors, int iN) {
-		int iSum = Sums.sumArray(iaFactors);
-		int iOnes = iN - iSum;
-		int iLen = iOnes + iaFactors.length;
+		int iSum = Sums.sumArray(iaFactors); //Add all of the factors given
+		int iOnes = iN - iSum; //Calculate the number of ones required for padding (ex. [2,3,3] (2+5=7) (2*5=10) 1*1*1*2*5=1+1+1+2+5 iOnes=3)
+		int iLen = iOnes + iaFactors.length; //Calculate the length of the equation len(1+1+1+2+5)=5
 		int[] iaNew;
 		int iNextVal;
-		if (_iaMin[iLen] == 0) {
+		if (_iaMin[iLen] == 0) { //If the minimum value has not been found for this 
 			_iaMin[iLen] = iN;
 			// System.out.println(iLen + "\t" + iN);
 		}
